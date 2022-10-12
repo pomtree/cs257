@@ -6,4 +6,4 @@ CREATE TABLE events (id SERIAL, category text, subcategory text);
 
 CREATE TABLE games (id SERIAL, year integer, season text, city text);
 
-CREATE TABLE games_events_athletes (game_id integer, event_id integer, athlete_id integer);
+CREATE TABLE linking_table (athlete_id integer, athlete_instance_id integer, event_id integer, game_id integer, medal text);

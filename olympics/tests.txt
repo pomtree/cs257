@@ -1,0 +1,18 @@
+SELECT books.title, books.publication_year
+FROM books, authors, books_authors
+WHERE books.id = books_authors.book_id
+AND authors.id = books_authors.author_id
+AND authors.surname = 'Willis';
+
+
+
+
+
+SELECT athletes.name_full, events.subcategory, games.year, games.city
+FROM athletes, events, games, linking_table
+WHERE athletes.id = linking_table.athlete_id
+AND games.id = linking_table.game_id
+AND events.id = linking_table.event_id
+AND athletes.name_first = 'Thomas'
+AND linking_table.medal = 'Gold'
+ORDER BY games.year;

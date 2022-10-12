@@ -58,7 +58,7 @@ with open('athlete_events.csv', 'r') as file:
         # new event
         if sport + event not in sport_events:
             sport_events.append(sport + event)
-            events.append([len(events) + 1, sport, event])
+            events.append([len(events), sport, event])
             event_id = len(events)
         else:
             event_id = sport_events.index(sport + event)
