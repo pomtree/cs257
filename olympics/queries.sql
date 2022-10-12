@@ -23,18 +23,10 @@ AND NOT linking_table.medal = 'NA'
 ORDER BY games.year;
 
 -- List all the NOCs and the number of gold medals they have won, in decreasing order of the number of gold medals.
-
- 
-
-
-
-SELECT athletes.name_full, events.subcategory, games.year, games.city
-FROM athletes, events, games, linking_table
-WHERE athletes.id = linking_table.athlete_id
-AND games.id = linking_table.game_id
-AND events.id = linking_table.event_id
-AND athletes.name_first = 'Thomas'
-AND linking_table.medal = 'Gold'
-ORDER BY games.year;
-
+SELECT COUNT(linking_table.medal), athlete_instances.noc
+FROM linking_table, athlete_instances
+WHERE linking_table.medal = 'Gold'
+AND linking_table.athlete_instance_id = athlete_instances.id
+GROUP BY athlete_instances.noc
+ORDER BY COUNT(linking_table.medal) DESC;
 
