@@ -19,6 +19,7 @@ def get_connection():
         exit()
 
 #Modified from Jeff's get_authors:
+#prints all the athletes associated at one point with given NOC
 def get_athletes_by_noc(noc):
     print("Athletes from " + noc + ":")
     #athletes = []
@@ -44,7 +45,7 @@ def get_athletes_by_noc(noc):
     connection.close()
     #return athletes
 
-
+#prints NOCs sorted by gold medals one in games held between start-end years.
 def most_medals_years(start, end):
     print("NOCs by most gold medals won (individuals, not sports) in year range:")
     try:
@@ -74,8 +75,15 @@ def most_medals_years(start, end):
     #return athletes
 
 
-
-parser = argparse.ArgumentParser(description='##HELP STATEMENT')
+#initialize arg parser
+parser = argparse.ArgumentParser(description='''
+usage: olympics.py [--noc NOC] [--most_medals] [--start start_year] [--end_year]\n
+NOC lists all athletes associated with that NOC.\n
+Most Medals lists all NOCs, sorted by the number of gold medals they've won
+    Optinal arguments:
+    Start year: the earilest year to count gold medals in Most Medals.\n
+    End year: the latest year to count gold medals in Most Medals.\n
+''')
 
 parser.add_argument('--noc', type=str)
 parser.add_argument('--most_medals', action='store_true')
@@ -89,6 +97,7 @@ if args.noc:
     #print('hello noc ' + args.noc)
     get_athletes_by_noc(args.noc)
 
+#calls most medals, gives default values to start/end if none given.
 if args.most_medals:
     if not args.start:
         print('no start')
