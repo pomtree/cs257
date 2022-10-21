@@ -44,16 +44,20 @@ def get_athletes_by_noc(noc):
     connection.close()
     #return athletes
 
-def most_medals():
-    print("NOCs by most gold medals won (individuals, not sports):")
+
+def most_medals_years(start, end):
+    print("NOCs by most gold medals won (individuals, not sports) in year range:")
     try:
         connection = get_connection()
         cursor = connection.cursor()
         query = '''
             SELECT COUNT(linking_table.medal), athlete_instances.noc
-            FROM linking_table, athlete_instances
+            FROM linking_table, athlete_instances, games
             WHERE linking_table.medal = 'Gold'
+            AND games.year >= ''' + str(start) + '''
+            AND games.year <= ''' + str(end) + '''
             AND linking_table.athlete_instance_id = athlete_instances.id
+            AND linking_table.game_id = games.id
             GROUP BY athlete_instances.noc
             ORDER BY COUNT(linking_table.medal) DESC'''
         cursor.execute(query)
@@ -69,10 +73,14 @@ def most_medals():
     connection.close()
     #return athletes
 
+
+
 parser = argparse.ArgumentParser(description='##HELP STATEMENT')
 
 parser.add_argument('--noc', type=str)
 parser.add_argument('--most_medals', action='store_true')
+parser.add_argument('--start', type=int)
+parser.add_argument('--end', type=int)
 
 args = parser.parse_args()
 
@@ -82,7 +90,12 @@ if args.noc:
     get_athletes_by_noc(args.noc)
 
 if args.most_medals:
-    most_medals()
+    if not args.start:
+        print('no start')
+        args.start = -1
+    if not args.end:
+        args.end = 3000
+    most_medals_years(args.start, args.end)
 
 
 #print(args.accumulate(args.integers))
