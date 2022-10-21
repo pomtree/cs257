@@ -1,6 +1,6 @@
 
 
-
+shortcuts for copying tables from 
 
 
 \copy athletes FROM 'athletes.csv' DELIMITER ',' CSV NULL AS 'NULL'
