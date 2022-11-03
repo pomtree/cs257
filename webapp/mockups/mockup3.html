@@ -5,25 +5,52 @@
     <meta charset="UTF-8">
     <title>NBA App</title>
     <link rel="stylesheet" href="mockup1.css" type="text/css" />
+
+    <style>
+        #wrapID {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+
 </head>
 
 <body>
-    <div class="wrapper">
+
+    <div class="wrapper" id = "wrapID">
         <header class="header">
             <h1 class="headertest">NBA App</h1>
         </header>
         <article class="main">
             add comparison table here
-            <table class = "table">
+            <style>
+                .winner {
+                    background-color: green;
+                }
+
+                .loser {
+                    background-color: red;
+                }
+
+                .tie {
+                    background-color: yellow;
+                }
+
+                .fillplease {
+                    background-color: blueviolet;
+                    width: 100%;
+                    font-family: cursive;
+                }
+            </style>
+            <table class="fillplease">
                 <tr>
                     <td>&nbsp;</td>
-                    <td>Knocky</td>
+                    <td class="fontchange">Knocky</td>
                     <td>Flor</td>
-                    <td id = "imposrtant">Ella</td>
+                    <td id="imposrtant">Ella</td>
                     <td>Juan</td>
                 </tr>
                 <tr>
-                    <td>Breed</td>
+                    <td class="data">Breed</td>
                     <td>Jack Russell</td>
                     <td>Poodle</td>
                     <td>Streetdog</td>
@@ -38,10 +65,10 @@
                 </tr>
                 <tr>
                     <td>Owner</td>
-                    <td>Mother-in-law</td>
+                    <td class="loser">Mother-in-law</td>
+                    <td class="winner">Me</td>
                     <td>Me</td>
-                    <td>Me</td>
-                    <td>Sister-in-law</td>
+                    <td class="tie">Sister-in-law</td>
                 </tr>
                 <tr>
                     <td>Eating Habits</td>
