@@ -134,3 +134,16 @@ h1.headertest {
   body {
     padding: 2em; 
   }
+
+ 
+table.tableidtest {
+  background-color: white;
+  color: green;
+}
+
+
+#sidebar {
+
+  padding: 1%;
+  background-color: green;
+}
