@@ -3,8 +3,8 @@ body {
 }
 
 .Logo {
-    width: 200px;
-    height: 200px;
+    width: 500px;
+    height: 500px;
 }
 
 #colorbox {
@@ -79,4 +79,13 @@ ul.navbar li a {
 ul.navbar li a:hover {
     background-color: #555;
     color: white;
+}
+
+.floatRight{
+    float:right;
+    margin-left: 20px;
+}
+.floatLeft{
+    float: left;
+    margin-left: 20px;
 }
