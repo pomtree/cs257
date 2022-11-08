@@ -14,10 +14,15 @@ with open('2019-20_pbp.csv') as original_data_file,\
     writer = csv.writer(plays_file, lineterminator='\n')
     # eat up and ignore the heading row of the data file
     heading_row = next(reader)
-    for row in reader:
-        athlete_id = row[0]
-        athlete_name = row[1]
 
+    play_id = 0
+    for row in reader:
+        play_id = play_id + 1
+        url = row[0]
+        game_type = row[1]
+        location = row[2]
+        date = row[3]
+        time = row[4]
         winning_team = row[5]
         quarter = row[6]
         secleft = row[7]
@@ -38,11 +43,11 @@ with open('2019-20_pbp.csv') as original_data_file,\
         fouled = row[22]
         rebounder = row[23]
         rebound_type = row[24]
-        violoation_player = row[25]
+        violation_player = row[25]
         violation_type = row[26]
         timeout_team = row[27]
         ft_shooter = row[28]
-        ft_num = row[29]
+        ft_outcome = row[29]
         enter_game = row[30]
         leave_rame = row[31]
         turnover_player = row[32]
@@ -53,6 +58,9 @@ with open('2019-20_pbp.csv') as original_data_file,\
         jb_home_player = row[37]
         jb_poss = row[38]
 
-if athlete_id not in athletes:
-    athletes[athlete_id] = athlete_name
-    writer.writerow([athlete_id, athlete_name])
+
+        game_id = 0
+        turnover_team = 0
+        play = home_play # or awayplay
+
+        writer.writerow([play_id, game_id, home_score, away_score, secleft, quarter, shooter, shot_type, shot_outcome, shot_dist, assister, blocker, foul_type, fouler, fouled, rebounder, rebound_type, violation_player, violation_type, turnover_team, ft_shooter, ft_outcome, turnover_player, turnover_type, turnover_cause, turnover_causer, jb_away_player, jb_home_player, jb_poss,  play])
