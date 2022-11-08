@@ -63,4 +63,26 @@ with open('2019-20_pbp.csv') as original_data_file,\
         turnover_team = 0
         play = home_play # or awayplay
 
-        writer.writerow([play_id, game_id, home_score, away_score, secleft, quarter, shooter, shot_type, shot_outcome, shot_dist, assister, blocker, foul_type, fouler, fouled, rebounder, rebound_type, violation_player, violation_type, turnover_team, ft_shooter, ft_outcome, turnover_player, turnover_type, turnover_cause, turnover_causer, jb_away_player, jb_home_player, jb_poss,  play])
+        if shot_outcome == 'make':
+            shot_outcome = 1
+        else:
+            shot_outcome = 0        
+            
+        if ft_outcome == 'make':
+            ft_outcome = 1
+        else:
+            ft_outcome = 0
+
+
+        write_row = [play_id, game_id, home_score, away_score, secleft, quarter, shooter, shot_type, shot_outcome, shot_dist, assister, blocker, foul_type, fouler, fouled, rebounder, rebound_type, violation_player, violation_type, turnover_team, ft_shooter, ft_outcome, turnover_player, turnover_type, turnover_cause, turnover_causer, jb_away_player, jb_home_player, jb_poss,  play]
+
+        i = 0
+        while i < len(write_row):
+            if write_row[i] == '':
+                write_row[i] = -1
+            i = i + 1
+        
+
+        
+
+        writer.writerow(write_row)
