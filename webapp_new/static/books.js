@@ -2,33 +2,32 @@
  * books.js
  * Jeff Ondich, 27 April 2016
  * Updated, 5 November 2020
+ *
+ * A little bit of Javascript showing one small example of AJAX
+ * within the "books and authors" sample for Carleton CS257.
+ *
+ * This example uses a very simple-minded approach to Javascript
+ * program structure. We'll talk more about this after you get
+ * a feel for some Javascript basics.
  */
 
 window.onload = initialize;
 
 function initialize() {
-    loadAuthorsSelector();
-
-    let element = document.getElementById('author_selector');
-    if (element) {
-        element.onchange = onAuthorsSelectionChanged;
-    }
+    var element = document.getElementById('authors_button');
+    element.onclick = onAuthorsButtonClicked;
 }
 
-// Returns the base URL of the API, onto which endpoint
-// components can be appended.
+// Returns the base URL of the API, onto which endpoint components can be appended.
 function getAPIBaseURL() {
-    let baseURL = window.location.protocol
-                    + '//' + window.location.hostname
-                    + ':' + window.location.port
-                    + '/api';
+    var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/api';
     return baseURL;
 }
 
-function loadAuthorsSelector() {
-    let url = getAPIBaseURL() + '/plays/';
+function onAuthorsButtonClicked() {
+    var url = getAPIBaseURL() + '/authors/';
 
-    // Send the request to the books API /authors/ endpoint
+    // Send the request to the Books API /authors/ endpoint
     fetch(url, {method: 'get'})
 
     // When the results come back, transform them from a JSON string into
@@ -37,21 +36,29 @@ function loadAuthorsSelector() {
 
     // Once you have your list of author dictionaries, use it to build
     // an HTML table displaying the author names and lifespan.
-    .then(function(authors) {
-        // Add the <option> elements to the <select> element
-        
-        console.log('hello????');
-        console.log(authors);
+    .then(function(authorsList) {
+        // Build the table body.
+        var tableBody = '';
+        for (var k = 0; k < authorsList.length; k++) {
+            tableBody += '<tr>';
 
-        let selectorBody = '';
-        for (let k = 0; k < authors.length; k++) {
-            let author = authors[k];
-            selectorBody += 'hello\n';
+            tableBody += '<td><a onclick="getAuthor(' + authorsList[k]['id'] + ",'"
+                            + authorsList[k]['given_name'] + ' ' + authorsList[k]['surname'] + "')\">"
+                            + authorsList[k]['surname'] + ', '
+                            + authorsList[k]['given_name'] + '</a></td>';
+
+            tableBody += '<td>' + authorsList[k]['birth_year'] + '-';
+            if (authorsList[k]['death_year'] != 0) {
+                tableBody += authorsList[k]['death_year'];
+            }
+            tableBody += '</td>';
+            tableBody += '</tr>';
         }
 
-        let selector = document.getElementById('author_selector');
-        if (selector) {
-            selector.innerHTML = selectorBody;
+        // Put the table body we just built inside the table that's already on the page.
+        var resultsTableElement = document.getElementById('results_table');
+        if (resultsTableElement) {
+            resultsTableElement.innerHTML = tableBody;
         }
     })
 
@@ -61,28 +68,27 @@ function loadAuthorsSelector() {
     });
 }
 
-function onAuthorsSelectionChanged() {
-    let authorID = this.value; 
-    let url = getAPIBaseURL() + '/books/author/' + authorID;
+function getAuthor(authorID, authorName) {
+    // Very similar pattern to onAuthorsButtonClicked, so I'm not
+    // repeating those comments here. Read through this code
+    // and see if it makes sense to you.
+    var url = getAPIBaseURL() + '/books/author/' + authorID;
 
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
 
-    .then(function(books) {
-        let tableBody = '';
-        for (let k = 0; k < books.length; k++) {
-            let book = books[k];
-            tableBody += '<tr>'
-                            + '<td>' + book['title'] + '</td>'
-                            + '<td>' + book['publication_year'] + '</td>'
-                            + '</tr>\n';
+    .then(function(booksList) {
+        var tableBody = '<tr><th>' + authorName + '</th></tr>';
+        for (var k = 0; k < booksList.length; k++) {
+            tableBody += '<tr>';
+            tableBody += '<td>' + booksList[k]['title'] + '</td>';
+            tableBody += '<td>' + booksList[k]['publication_year'] + '</td>';
+            tableBody += '</tr>';
         }
-
-        // Put the table body we just built inside the table that's already on the page.
-        let booksTable = document.getElementById('books_table');
-        if (booksTable) {
-            booksTable.innerHTML = tableBody;
+        var resultsTableElement = document.getElementById('results_table');
+        if (resultsTableElement) {
+            resultsTableElement.innerHTML = tableBody;
         }
     })
 
