@@ -8,3 +8,6 @@ shortcuts for copying tables from
 \copy events FROM 'events.csv' DELIMITER ',' CSV NULL AS 'NULL'
 \copy games FROM 'games.csv' DELIMITER ',' CSV NULL AS 'NULL'
 \copy linking_table FROM 'linking_table.csv' DELIMITER ',' CSV NULL AS 'NULL'
+
+
+\copy plays FROM 'plays.csv' DELIMITER ',' CSV NULL AS 'NULL'
