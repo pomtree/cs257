@@ -8,7 +8,7 @@ Creates csv for each of our tables
 import csv
 
 athletes = {}
-with open('2019-20_pbp.csv') as original_data_file,\
+with open('big_data_file/smaller.csv') as original_data_file,\
         open('plays.csv', 'w') as plays_file:
     reader = csv.reader(original_data_file)
     writer = csv.writer(plays_file, lineterminator='\n')
@@ -16,6 +16,17 @@ with open('2019-20_pbp.csv') as original_data_file,\
     heading_row = next(reader)
 
     play_id = 0
+
+    game_id = 0
+
+    player_id = 0
+    players = []
+    three_pt_makes = []
+    three_pt_misses = []
+
+
+
+
     for row in reader:
         play_id = play_id + 1
         url = row[0]
@@ -58,10 +69,16 @@ with open('2019-20_pbp.csv') as original_data_file,\
         jb_home_player = row[37]
         jb_poss = row[38]
 
+        if away_play == 'End of Game':
+            #print('end of game')
+            game_id = game_id + 1
 
-        game_id = 0
-        turnover_team = 0
-        play = home_play # or awayplay
+        if not shooter in players:
+            players.append(shooter)
+            three_pt_makes.append(0)
+            three_pt_misses.append(0)
+        
+        index = players.index(shooter)
 
         if shot_outcome == 'make':
             shot_outcome = 1
@@ -72,6 +89,22 @@ with open('2019-20_pbp.csv') as original_data_file,\
             ft_outcome = 1
         else:
             ft_outcome = 0
+
+
+
+        if shot_type == '3-pt jump shot':
+            if shot_outcome == 1:
+                three_pt_makes[index] = three_pt_makes[index] + 1
+            else:
+                three_pt_misses[index] = three_pt_misses[index] + 1
+
+        
+        turnover_team = 0
+
+        if len(home_play) > len(away_play):
+            play = home_play # or awayplay
+        else:
+            play = away_play
 
 
         write_row = [play_id, game_id, home_score, away_score, secleft, quarter, shooter, shot_type, shot_outcome, shot_dist, assister, blocker, foul_type, fouler, fouled, rebounder, rebound_type, violation_player, violation_type, turnover_team, ft_shooter, ft_outcome, turnover_player, turnover_type, turnover_cause, turnover_causer, jb_away_player, jb_home_player, jb_poss,  play]
@@ -86,3 +119,9 @@ with open('2019-20_pbp.csv') as original_data_file,\
         
 
         writer.writerow(write_row)
+
+i = 0
+while i < len(players):
+    print(players[i])
+    print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i] + 0.00001))
+    i = i + 1
