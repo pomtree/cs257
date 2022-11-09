@@ -21,11 +21,22 @@ with open('big_data_file/smaller.csv') as original_data_file,\
 
     player_id = 0
     players = []
+
     three_pt_makes = []
     three_pt_misses = []
 
+    hook_makes = []
+    hook_misses = []
+
+    dunk_makes = []
+    dunk_misses = []
+
+    layup_makes = []
+    layup_misses = []
 
 
+    jump_makes = []
+    jump_misses = []
 
     for row in reader:
         play_id = play_id + 1
@@ -75,9 +86,23 @@ with open('big_data_file/smaller.csv') as original_data_file,\
 
         if not shooter in players:
             players.append(shooter)
+
             three_pt_makes.append(0)
             three_pt_misses.append(0)
-        
+
+            hook_makes.append(0)
+            hook_misses.append(0)
+
+            dunk_makes.append(0)
+            dunk_misses.append(0)
+
+            layup_makes.append(0)
+            layup_misses.append(0)
+
+            jump_makes.append(0)
+            jump_misses.append(0)
+
+
         index = players.index(shooter)
 
         if shot_outcome == 'make':
@@ -97,6 +122,30 @@ with open('big_data_file/smaller.csv') as original_data_file,\
                 three_pt_makes[index] = three_pt_makes[index] + 1
             else:
                 three_pt_misses[index] = three_pt_misses[index] + 1
+
+        if shot_type == '2-pt jump shot':
+            if shot_outcome == 1:
+                jump_makes[index] = jump_makes[index] + 1
+            else:
+                jump_misses[index] = jump_misses[index] + 1
+
+        if shot_type == '2-pt hook shot':
+            if shot_outcome == 1:
+                hook_makes[index] = hook_makes[index] + 1
+            else:
+                hook_misses[index] = hook_misses[index] + 1
+
+        if shot_type == '2-pt dunk':
+            if shot_outcome == 1:
+                dunk_makes[index] = dunk_makes[index] + 1
+            else:
+                dunk_misses[index] = dunk_misses[index] + 1
+
+        if shot_type == '2-pt layup':
+            if shot_outcome == 1:
+                layup_makes[index] = layup_makes[index] + 1
+            else:
+                layup_misses[index] = layup_misses[index] + 1
 
         
         turnover_team = 0
@@ -124,4 +173,5 @@ i = 0
 while i < len(players):
     print(players[i])
     print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i] + 0.00001))
+    print(hook_makes[i]/(hook_makes[i] + hook_misses[i] + 0.00001))
     i = i + 1
