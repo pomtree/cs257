@@ -286,6 +286,6 @@ while i < len(players):
     i= i + 1
 
 for team in teams_dict:
-    ppg_team[home_team]= teams_dict[team] / games_count[team]
+    ppg_team[home_team] = teams_dict[team] / games_count[team]
 
 print(ppg_team)
