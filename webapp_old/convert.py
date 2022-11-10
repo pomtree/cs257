@@ -27,10 +27,12 @@ with open(read_file, errors="ignore") as original_data_file,\
     player_id = 0
     players = []
 
-    teams = []
-    teams_dict = {}
-    games_count = {}
     ppg_team = {}
+    teams_ppg_dict = {}
+    games_count = {}
+
+    reb_team = {}
+    teams_rebounds = {}
 
     three_pt_makes = []
     three_pt_misses = []
@@ -111,20 +113,35 @@ with open(read_file, errors="ignore") as original_data_file,\
             # print('end of game')
             game_id = game_id + 1
 
-            if home_team not in teams_dict:
-                teams_dict[home_team] = int(home_score)
+            if home_team not in teams_ppg_dict:
+                teams_ppg_dict[home_team] = int(home_score)
                 games_count[home_team] = 1
             else:
-                teams_dict[home_team] += int(home_score)
+                teams_ppg_dict[home_team] += int(home_score)
                 games_count[home_team] += 1
 
-            if away_team not in teams_dict:
-                teams_dict[away_team] = int(away_score)
+            if away_team not in teams_ppg_dict:
+                teams_ppg_dict[away_team] = int(away_score)
                 games_count[away_team] = 1
             else:
-                teams_dict[away_team] += int(away_score)
+                teams_ppg_dict[away_team] += int(away_score)
                 games_count[away_team] += 1
 
+        if home_team not in teams_rebounds:
+            if rebounder != None:
+                teams_rebounds[home_team] = 1
+            else:
+                teams_rebounds[home_team] += 1 
+        else:
+            teams_rebounds[home_team] += 1
+
+        if away_team not in teams_rebounds:
+            if rebounder != None:
+                teams_rebounds[away_team] = 1
+            else:
+                teams_rebounds[away_team] += 1
+        else:
+            teams_rebounds[away_team] += 1
         active_players = [shooter, assister, blocker, fouler, fouled, rebounder, violation_player, ft_shooter, turnover_player, turnover_causer, jb_home_player, jb_away_player]
 
         i = 0
@@ -285,6 +302,18 @@ with open(read_file, errors="ignore") as original_data_file,\
 i= 0
 while i < len(players):
     print(players[i])
+    print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i] + 0.00001))
+    print(layup_makes[i]/(layup_makes[i] + layup_misses[i] + 0.00001))
+    i = i + 1
+
+# dictionary of teams ppg
+for key in teams_ppg_dict:
+    ppg_team[key] = teams_ppg_dict[key] / games_count[key]
+
+for key in teams_rebounds:
+    reb_team[key] = teams_rebounds[key] / games_count[key]
+
+
     if three_pt_makes[i] + three_pt_misses[i] > 0:
         print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i]))
         print('\t' + str(three_pt_makes[i]) + ' - ' + str(three_pt_misses[i]))
