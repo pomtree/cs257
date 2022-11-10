@@ -59,6 +59,8 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
     jb_makes = []
     jb_misses = []
 
+    teams = []
+
     for row in reader:
         play_id = play_id + 1
         url = row[0]
@@ -120,20 +122,23 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
                 games_count[away_team] += 1
 
         if home_team not in teams_rebounds:
-            if rebounder != None:
-                teams_rebounds[home_team] = 1
-            else:
+            teams_rebounds[home_team] = 0
+            if rebounder != "" and away_play != "" and rebound_type != "":
                 teams_rebounds[home_team] += 1 
         else:
-            teams_rebounds[home_team] += 1
+            if rebounder != "" and away_play != "" and rebound_type != "":
+                teams_rebounds[home_team] += 1
 
         if away_team not in teams_rebounds:
-            if rebounder != None:
-                teams_rebounds[away_team] = 1
-            else:
+            teams_rebounds[away_team] = 0
+            if rebounder != "" and home_play != "" and rebound_type != "":
                 teams_rebounds[away_team] += 1
         else:
-            teams_rebounds[away_team] += 1
+            if rebounder != "" and home_play != "" and rebound_type != "":
+                teams_rebounds[away_team] += 1
+
+        print(teams_rebounds)
+
         active_players = [shooter, assister, blocker, fouler, fouled, rebounder, violation_player, ft_shooter, turnover_player, turnover_causer, jb_home_player, jb_away_player]
 
         i = 0
@@ -178,9 +183,6 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
 
                 i = i + 1
             
-
-
-
         if shot_outcome == 'make':
             shot_outcome= 1
         else:
@@ -302,22 +304,24 @@ while i < len(players):
 for key in teams_ppg_dict:
     ppg_team[key] = teams_ppg_dict[key] / games_count[key]
 
-for key in teams_rebounds:
+for key in teams_rebounds: 
     reb_team[key] = teams_rebounds[key] / games_count[key]
 
 
-    if three_pt_makes[i] + three_pt_misses[i] > 0:
-        print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i]))
-        print('\t' + str(three_pt_makes[i]) + ' - ' + str(three_pt_misses[i]))
-    if layup_makes[i] + layup_misses[i] > 0:
-        print(layup_makes[i]/(layup_makes[i] + layup_misses[i]))
-    print()
-    i= i + 1
-
-for team in teams_dict:
-    ppg_team[home_team] = teams_dict[team] / games_count[team]
-
+print(teams_rebounds)
 print(ppg_team)
+print(reb_team)
+
+if three_pt_makes[i] + three_pt_misses[i] > 0:
+    print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i]))
+    print('\t' + str(three_pt_makes[i]) + ' - ' + str(three_pt_misses[i]))
+if layup_makes[i] + layup_misses[i] > 0:
+    print(layup_makes[i]/(layup_makes[i] + layup_misses[i]))
+print()
+i= i + 1
+
+for team in teams_ppg_dict:
+    ppg_team[home_team] = teams_ppg_dict[team] / games_count[team]
 
 with open('big_data_file/players.csv',  "w") as player_file:
     writer = csv.writer(player_file, lineterminator='\n')
