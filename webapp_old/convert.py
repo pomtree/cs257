@@ -173,5 +173,5 @@ i = 0
 while i < len(players):
     print(players[i])
     print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i] + 0.00001))
-    print(hook_makes[i]/(hook_makes[i] + hook_misses[i] + 0.00001))
+    print(layup_makes[i]/(layup_makes[i] + layup_misses[i] + 0.00001))
     i = i + 1
