@@ -22,10 +22,12 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
     player_id = 0
     players = []
 
-    teams = []
-    teams_dict = {}
-    games_count = {}
     ppg_team = {}
+    teams_ppg_dict = {}
+    games_count = {}
+
+    reb_team = {}
+    teams_rebounds = {}
 
     three_pt_makes = []
     three_pt_misses = []
@@ -89,27 +91,35 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
             #print('end of game')
             game_id = game_id + 1
 
-            if home_team not in teams_dict:
-                teams_dict[home_team] = int(home_score)
+            if home_team not in teams_ppg_dict:
+                teams_ppg_dict[home_team] = int(home_score)
                 games_count[home_team] = 1
             else:
-                teams_dict[home_team] += int(home_score)
+                teams_ppg_dict[home_team] += int(home_score)
                 games_count[home_team] += 1
 
-            if away_team not in teams_dict:
-                teams_dict[away_team] = int(away_score)
+            if away_team not in teams_ppg_dict:
+                teams_ppg_dict[away_team] = int(away_score)
                 games_count[away_team] = 1
             else:
-                teams_dict[away_team] += int(away_score)
+                teams_ppg_dict[away_team] += int(away_score)
                 games_count[away_team] += 1
 
-            
+        if home_team not in teams_rebounds:
+            if rebounder != None:
+                teams_rebounds[home_team] = 1
+            else:
+                teams_rebounds[home_team] += 1 
+        else:
+            teams_rebounds[home_team] += 1
 
-
-                
-
-
-
+        if away_team not in teams_rebounds:
+            if rebounder != None:
+                teams_rebounds[away_team] = 1
+            else:
+                teams_rebounds[away_team] += 1
+        else:
+            teams_rebounds[away_team] += 1
 
         if not shooter in players:
             players.append(shooter)
@@ -201,7 +211,12 @@ while i < len(players):
     print(layup_makes[i]/(layup_makes[i] + layup_misses[i] + 0.00001))
     i = i + 1
 
-for key in teams_dict:
-    ppg_team[key] = teams_dict[key] / games_count[key]
+# dictionary of teams ppg
+for key in teams_ppg_dict:
+    ppg_team[key] = teams_ppg_dict[key] / games_count[key]
+
+for key in teams_rebounds:
+    reb_team[key] = teams_rebounds[key] / games_count[key]
 
 print(ppg_team)
+print(reb_team)
