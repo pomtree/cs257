@@ -8,7 +8,7 @@ Creates csv for each of our tables
 import csv
 
 athletes = {}
-with open('big_data_file/smaller.csv') as original_data_file,\
+with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
         open('plays.csv', 'w') as plays_file:
     reader = csv.reader(original_data_file)
     writer = csv.writer(plays_file, lineterminator='\n')
@@ -21,6 +21,11 @@ with open('big_data_file/smaller.csv') as original_data_file,\
 
     player_id = 0
     players = []
+
+    teams = []
+    teams_dict = {}
+    games_count = {}
+    ppg_team = {}
 
     three_pt_makes = []
     three_pt_misses = []
@@ -83,6 +88,28 @@ with open('big_data_file/smaller.csv') as original_data_file,\
         if away_play == 'End of Game':
             #print('end of game')
             game_id = game_id + 1
+
+            if home_team not in teams_dict:
+                teams_dict[home_team] = int(home_score)
+                games_count[home_team] = 1
+            else:
+                teams_dict[home_team] += int(home_score)
+                games_count[home_team] += 1
+
+            if away_team not in teams_dict:
+                teams_dict[away_team] = int(away_score)
+                games_count[away_team] = 1
+            else:
+                teams_dict[away_team] += int(away_score)
+                games_count[away_team] += 1
+
+            
+
+
+                
+
+
+
 
         if not shooter in players:
             players.append(shooter)
@@ -165,8 +192,6 @@ with open('big_data_file/smaller.csv') as original_data_file,\
             i = i + 1
         
 
-        
-
         writer.writerow(write_row)
 
 i = 0
@@ -175,3 +200,8 @@ while i < len(players):
     print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i] + 0.00001))
     print(layup_makes[i]/(layup_makes[i] + layup_misses[i] + 0.00001))
     i = i + 1
+
+for team in teams_dict:
+    ppg_team[home_team] = teams_dict[team] / games_count[team]
+
+print(ppg_team)
