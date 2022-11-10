@@ -289,3 +289,15 @@ for team in teams_dict:
     ppg_team[home_team] = teams_dict[team] / games_count[team]
 
 print(ppg_team)
+
+with open('big_data_file/players.csv',  "w") as player_file:
+    writer = csv.writer(player_file, lineterminator='\n')
+    i= 0
+    while i < len(players):
+        real_name = players[i].split('-')
+        write_row = [i, players[i], real_name, teams[i], teams[i], three_pt_makes[i] + three_pt_misses[i], three_pt_makes[i], layup_makes[i] + layup_misses[i], layup_makes[i], jump_makes[i] + jump_misses[i], jump_makes[i], hook_makes[i] + hook_misses[i], blocks[i], fouls[i], fouled_c[i], rebounds[i], violations[i], ft_makes[i] + ft_misses[i], ft_makes[i], turnovers[i], turnovers_caused[i], assists[i], jb_makes[i] + jb_misses[i], jb_makes[i]]
+        print(write_row)
+        print()
+        writer.writerow(write_row)
+    
+        i = i + 1

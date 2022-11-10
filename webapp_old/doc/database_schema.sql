@@ -1,6 +1,6 @@
 CREATE TABLE plays (id SERIAL, game_id integer, current_score_h integer, current_score_a integer, secs_left integer, qrt integer, shooter text, shot_type text, shot_outcome integer, shot_dist integer, asstr text, blkr text, foul_type text, fouler text, fouled text, rebounder text, rb_type text, v_player text, v_type text, to_team text, ft_shooter text, ft_outcome integer, to_player text, to_type text, to_cause text, to_causer text, jb_a_player text, jb_h_player text, jb_pos text, description text);
 
-CREATE TABLE players (id SERIAL, csv_id text, name text, team_id integer, team text, three_attempts integer, three_makes integer, layup_attempts integer, layup_makes integer, jumper_attempts integer, jumper_makes integer, hook_attempts integer, hook_makes integer, blocks integer, fouls integer, fouled integer, rbs integer, vs integer, ft_attempts integer, ft_makes integer, tos integer, tos_caused integer);
+CREATE TABLE players (id SERIAL, csv_id text, name text, team_id integer, team text, three_attempts integer, three_makes integer, layup_attempts integer, layup_makes integer, jumper_attempts integer, jumper_makes integer, hook_attempts integer, hook_makes integer, blocks integer, fouls integer, fouled integer, rbs integer, vs integer, ft_attempts integer, ft_makes integer, tos integer, tos_caused integer, assists integer, jb_attempts integer, jb_makes integer);
 
 CREATE TABLE teams (id SERIAL, abbriviation text, name text, wins integer, losses integer, h_wins integer, a_wins integer, ot_wins integer, ot_losses integer);
 

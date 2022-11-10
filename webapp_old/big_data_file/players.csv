@@ -1,0 +1,61 @@
+0,,[''],CHI,CHI,0,0,0,0,0,0,0,1484,1369,1371,0,1507,1375,0,1353,1479,1366,2990,0
+1,D. Favors - favorde01,"['D. Favors ', ' favorde01']",NOP,NOP,0,0,3,3,3,0,0,1,5,0,0,0,0,0,4,0,2,1,0
+2,L. Ball - balllo01,"['L. Ball ', ' balllo01']",NOP,NOP,3,2,1,0,3,0,0,0,2,1,0,0,2,2,3,0,5,0,0
+3,O. Anunoby - anunoog01,"['O. Anunoby ', ' anunoog01']",TOR,TOR,4,1,6,2,0,0,1,2,3,3,0,0,1,0,2,0,0,0,0
+4,J. Redick - redicjj01,"['J. Redick ', ' redicjj01']",NOP,NOP,6,4,0,0,3,2,0,0,3,2,0,0,0,0,3,0,1,0,0
+5,J. Holiday - holidjr01,"['J. Holiday ', ' holidjr01']",NOP,NOP,6,1,7,4,2,1,0,2,2,2,0,0,2,0,2,0,6,0,0
+6,F. VanVleet - vanvlfr01,"['F. VanVleet ', ' vanvlfr01']",TOR,TOR,7,5,11,7,0,0,0,0,0,5,0,0,6,5,2,0,7,2,0
+7,K. Lowry - lowryky01,"['K. Lowry ', ' lowryky01']",TOR,TOR,11,3,4,1,0,0,0,0,5,11,0,0,13,11,2,0,6,2,0
+8,B. Ingram - ingrabr01,"['B. Ingram ', ' ingrabr01']",NOP,NOP,5,2,2,1,11,4,0,2,4,6,0,0,4,4,2,0,5,1,0
+9,Team,['Team'],0,0,0,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,0,0
+10,steal,['steal'],0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,37,0,0,0
+11,P. Siakam - siakapa01,"['P. Siakam ', ' siakapa01']",TOR,TOR,5,2,14,6,3,1,4,1,6,10,0,0,11,10,4,0,5,0,0
+12,M. Gasol - gasolma01,"['M. Gasol ', ' gasolma01']",TOR,TOR,4,1,2,1,1,0,2,0,6,1,0,0,1,1,5,0,1,0,0
+13,S. Ibaka - ibakase01,"['S. Ibaka ', ' ibakase01']",TOR,TOR,1,0,1,1,4,0,3,0,2,3,0,0,6,5,4,0,0,1,0
+14,N. Alexander-Walker - alexani01,"['N. Alexander', 'Walker ', ' alexani01']",NOP,NOP,7,1,1,0,2,0,0,0,2,2,0,0,0,0,1,0,2,2,0
+15,N. Powell - powelno01,"['N. Powell ', ' powelno01']",TOR,TOR,5,1,2,1,0,0,0,0,2,0,0,0,0,0,2,0,2,0,0
+16,J. Hart - hartjo01,"['J. Hart ', ' hartjo01']",NOP,NOP,5,3,2,1,2,0,0,1,4,4,0,0,4,4,1,0,1,0,0
+17,K. Williams - willike04,"['K. Williams ', ' willike04']",NOP,NOP,2,0,2,0,0,0,0,2,5,1,0,0,3,3,2,0,3,1,0
+18,E. Moore - mooreet01,"['E. Moore ', ' mooreet01']",NOP,NOP,3,1,1,0,3,1,0,0,0,0,0,0,0,0,1,0,2,0,0
+19,J. Okafor - okafoja01,"['J. Okafor ', ' okafoja01']",NOP,NOP,0,0,3,3,0,0,0,1,3,4,0,0,3,2,2,0,0,0,0
+20,N. Melli - mellini01,"['N. Melli ', ' mellini01']",NOP,NOP,5,4,1,0,1,1,0,0,1,1,0,0,0,0,4,0,2,1,0
+21,F. Jackson - jacksfr01,"['F. Jackson ', ' jacksfr01']",NOP,NOP,3,1,2,1,1,1,0,0,3,1,0,0,2,2,2,0,1,0,0
+22,T. Davis - daviste02,"['T. Davis ', ' daviste02']",TOR,TOR,3,1,3,1,0,0,0,0,2,1,0,0,0,0,1,0,2,2,0
+23,J. McGee - mcgeeja01,"['J. McGee ', ' mcgeeja01']",LAL,LAL,0,0,1,0,0,0,0,2,0,0,0,0,0,0,3,0,0,1,0
+24,L. James - jamesle01,"['L. James ', ' jamesle01']",LAL,LAL,5,1,8,4,5,1,1,1,3,6,0,0,4,3,4,0,8,1,0
+25,A. Davis - davisan02,"['A. Davis ', ' davisan02']",LAL,LAL,2,0,6,4,10,2,1,2,3,10,0,0,14,9,2,0,5,2,0
+26,L. Shamet - shamela01,"['L. Shamet ', ' shamela01']",LAC,LAC,4,2,3,1,1,0,0,0,1,1,0,0,0,0,3,0,2,0,0
+27,D. Green - greenda02,"['D. Green ', ' greenda02']",LAL,LAL,9,7,4,3,1,0,0,1,3,4,0,0,1,1,2,0,0,2,0
+28,P. Beverley - beverpa01,"['P. Beverley ', ' beverpa01']",LAC,LAC,5,0,2,1,0,0,0,1,4,2,0,0,0,0,4,0,6,0,0
+29,K. Leonard - leonaka01,"['K. Leonard ', ' leonaka01']",LAC,LAC,5,1,1,0,12,8,0,1,5,5,0,0,10,9,6,0,5,2,0
+30,I. Zubac - zubaciv01,"['I. Zubac ', ' zubaciv01']",LAC,LAC,0,0,2,2,0,0,2,0,2,0,0,0,0,0,2,0,0,0,0
+31,P. Patterson - pattepa01,"['P. Patterson ', ' pattepa01']",LAC,LAC,3,1,0,0,0,0,0,0,2,2,0,0,2,1,2,0,0,0,0
+32,M. Harrell - harremo01,"['M. Harrell ', ' harremo01']",LAC,LAC,0,0,5,3,1,0,1,1,3,5,0,0,8,3,1,0,4,1,0
+33,L. Williams - willilo02,"['L. Williams ', ' willilo02']",LAC,LAC,4,1,2,1,8,6,0,0,0,9,0,0,4,4,3,0,7,1,0
+34,A. Bradley - bradlav01,"['A. Bradley ', ' bradlav01']",LAL,LAL,5,2,0,0,2,1,0,0,3,0,0,0,0,0,3,0,0,0,0
+35,D. Howard - howardw01,"['D. Howard ', ' howardw01']",LAL,LAL,0,0,1,0,0,0,0,1,4,3,0,0,1,1,2,0,1,0,0
+36,K. Caldwell-Pope - caldwke01,"['K. Caldwell', 'Pope ', ' caldwke01']",LAL,LAL,2,0,0,0,1,0,0,0,5,1,0,0,0,0,3,0,3,0,0
+37,J. Green - greenja01,"['J. Green ', ' greenja01']",LAC,LAC,7,4,0,0,1,0,0,0,3,0,0,0,0,0,2,0,0,0,0
+38,M. Harkless - harklma01,"['M. Harkless ', ' harklma01']",LAL,LAL,3,2,2,0,0,0,0,2,5,0,0,0,0,0,3,0,0,4,0
+39,T. Daniels - danietr01,"['T. Daniels ', ' danietr01']",LAL,LAL,5,1,0,0,1,1,0,0,1,1,0,0,1,1,2,0,1,0,0
+40,Q. Cook - cookqu01,"['Q. Cook ', ' cookqu01']",LAL,LAL,3,0,2,1,2,1,0,0,0,0,0,0,0,0,2,0,2,0,0
+41,J. Dudley - dudleja01,"['J. Dudley ', ' dudleja01']",LAL,LAL,2,2,0,0,0,0,0,0,2,0,0,0,0,0,2,0,0,0,0
+42,W. Carter - cartewe01,"['W. Carter ', ' cartewe01']",CHI,CHI,0,0,5,2,1,0,1,1,4,2,0,0,2,2,7,0,0,1,0
+43,Z. LaVine - lavinza01,"['Z. LaVine ', ' lavinza01']",CHI,CHI,4,1,7,4,4,0,0,1,3,2,0,0,1,1,3,0,7,2,0
+44,C. Zeller - zelleco01,"['C. Zeller ', ' zelleco01']",CHO,CHO,2,0,4,2,2,1,0,0,4,5,0,0,4,3,5,0,1,0,0
+45,M. Bridges - bridgmi02,"['M. Bridges ', ' bridgmi02']",CHO,CHO,2,0,3,2,0,0,1,3,0,1,0,0,0,0,3,0,3,0,0
+46,L. Markkanen - markkla01,"['L. Markkanen ', ' markkla01']",CHI,CHI,7,1,7,5,5,3,3,0,1,5,0,0,10,8,3,0,2,1,0
+47,T. Rozier - roziete01,"['T. Rozier ', ' roziete01']",CHO,CHO,6,2,3,0,1,0,0,0,1,2,0,0,1,1,4,0,6,0,0
+48,D. Bacon - bacondw01,"['D. Bacon ', ' bacondw01']",CHO,CHO,8,2,5,3,7,2,1,0,2,6,0,0,6,4,2,0,3,2,0
+49,O. Porter - porteot01,"['O. Porter ', ' porteot01']",CHI,CHI,5,1,3,1,1,0,0,1,2,2,0,0,2,2,6,0,1,2,0
+50,P. Washington - washipj01,"['P. Washington ', ' washipj01']",CHO,CHO,11,7,4,1,0,0,1,1,2,1,0,0,2,2,4,0,1,1,0
+51,T. SatoranskÃ½ - satorto01,"['T. SatoranskÃ½ ', ' satorto01']",CHI,CHI,0,0,4,1,1,0,0,1,2,1,0,0,0,0,2,0,3,0,0
+52,L. Kornet - kornelu01,"['L. Kornet ', ' kornelu01']",CHI,CHI,1,0,1,0,1,0,0,0,1,1,0,0,0,0,2,0,0,0,0
+53,D. Graham - grahade01,"['D. Graham ', ' grahade01']",CHO,CHO,7,6,1,1,1,0,0,0,3,4,0,0,3,3,2,0,8,0,0
+54,C. White - whiteco01,"['C. White ', ' whiteco01']",CHI,CHI,4,1,6,5,3,0,0,0,2,3,0,0,5,4,2,0,7,0,0
+55,T. Young - youngth01,"['T. Young ', ' youngth01']",CHI,CHI,5,3,3,2,0,0,3,0,1,0,0,0,0,0,5,0,2,1,0
+56,N. Batum - batumni01,"['N. Batum ', ' batumni01']",0,0,0,0,0,0,0,0,0,0,2,1,0,0,0,0,2,0,2,0,0
+57,K. Dunn - dunnkr01,"['K. Dunn ', ' dunnkr01']",CHI,CHI,2,0,5,5,0,0,0,0,3,2,0,0,2,1,4,0,2,4,0
+58,R. Arcidiacono - arcidry01,"['R. Arcidiacono ', ' arcidry01']",CHI,CHI,2,2,0,0,1,0,0,0,1,0,0,0,0,0,2,0,1,1,0
+59,M. Monk - monkma01,"['M. Monk ', ' monkma01']",CHO,CHO,1,1,2,2,1,0,0,0,3,0,0,0,0,0,2,0,3,0,0
+60,M. Williams - willima02,"['M. Williams ', ' willima02']",CHO,CHO,7,5,0,0,2,1,0,0,1,0,0,0,0,0,3,0,1,0,0
