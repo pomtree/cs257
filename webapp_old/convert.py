@@ -8,7 +8,12 @@ Creates csv for each of our tables
 import csv
 
 athletes = {}
-with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
+
+read_file = 'big_data_file/smaller.csv'
+read_file = 'C:\\Users\\Thomas\\Desktop\\cs257\\cs257 repo - Copy\\webapp_new\\2019-20_pbp.csv'
+read_file = '/mnt/c/Users/Thomas/Desktop/cs257/cs257 repo - Copy/webapp_new/2019-20_pbp.csv'
+
+with open(read_file, errors="ignore") as original_data_file,\
         open('plays.csv', 'w') as plays_file:
     reader = csv.reader(original_data_file)
     writer = csv.writer(plays_file, lineterminator='\n')
@@ -98,6 +103,9 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
         jb_away_player = row[36]
         jb_home_player = row[37]
         jb_poss = row[38]
+
+        if play_id % 5000 == 0:
+            print(play_id)
 
         if away_play == 'End of Game':
             # print('end of game')
