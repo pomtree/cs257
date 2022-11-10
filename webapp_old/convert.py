@@ -137,8 +137,6 @@ with open('big_data_file/smaller.csv', errors="ignore") as original_data_file,\
             if rebounder != "" and home_play != "" and rebound_type != "":
                 teams_rebounds[away_team] += 1
 
-        print(teams_rebounds)
-
         active_players = [shooter, assister, blocker, fouler, fouled, rebounder, violation_player, ft_shooter, turnover_player, turnover_causer, jb_home_player, jb_away_player]
 
         i = 0
