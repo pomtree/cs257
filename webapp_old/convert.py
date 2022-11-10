@@ -201,7 +201,7 @@ while i < len(players):
     print(hook_makes[i]/(hook_makes[i] + hook_misses[i] + 0.00001))
     i = i + 1
 
-for team in teams_dict:
-    ppg_team[home_team] = teams_dict[team] / games_count[team]
+for key in teams_dict:
+    ppg_team[key] = teams_dict[key] / games_count[key]
 
 print(ppg_team)
