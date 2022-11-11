@@ -77,21 +77,27 @@ def get_authorsJ():
 
 @api.route('/authors/') 
 def get_authors():
-    query =  '''
-            SELECT game_id, shooter, shot_dist, qrt, current_score_h 
-            FROM plays
-            WHERE shot_outcome = 1
-            AND shot_dist > 50
-            ORDER BY shot_dist DESC;
-            '''
+    # query =  '''
+    #         SELECT game_id, shooter, shot_dist, qrt, current_score_h 
+    #         FROM plays
+    #         WHERE shot_outcome = 1
+    #         AND shot_dist > 50
+    #         ORDER BY shot_dist DESC;
+    #         '''
 
+    # '''
+    query = '''
+            SELECT team, name, fouls, three_makes, three_attempts
+            FROM players
+            ORDER BY
     '''
+
+
     sort_argument = flask.request.args.get('sort')
-    if sort_argument == 'birth_year':
+    if sort_argument == 'team':
         query += 'birth_year'
-    else:
-        query += 'surname, given_name'
-    '''
+    else:# sort_argument == 'name':
+        query += 'name'
 
     author_list = []
     try:

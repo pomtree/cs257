@@ -1,29 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="UTF-8">
+    <title>NBA App</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='books.css') }}" />
     <script type="text/javascript" src="{{ url_for('static', filename='books.js') }}" ></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
-    <title>CS 257: Software Design</title>
+
+    <style>
+        #wrapID {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+
 </head>
 
 <body>
-    <h1>CS 257: Sample Web App</h1>
 
-    <p><button id="authors_button">Get authors</button></p>
+    <div class="wrapper" id="wrapID">
+        <header class="header">
+            <h1 class="headertest"><a href="mockup1.html">NBA App</a></h1>
+        </header>
+        <article class="main">
+            player comparison of "PLAYER 1" and "PLAYER 2" and .... "PLAYER n":
+            <style>
+                .winner {
+                    background-color: green;
+                }
 
-    <p><table id="results_table"></table></p>
+                .loser {
+                    background-color: red;
+                }
 
-    <p>This is a <span class="whoa">TERRIBLE</span>
-        user interface. Do not copy it for your project!</p>
+                .tie {
+                    background-color: yellow;
+                }
 
-    <p><strong>Why is this page this way?</strong> Because I want to give you an example
-    that illustrates the core techniques you'll need for your web application project,
-    but does so in as minimal a way as possible. So you'll find a little HTML, a little CSS, a little
-    Javascript, and access to a database-drive API, but nothing more. You can't even search for
-    a book or author by name, which would be fundamental features if I actually wanted to
-    make this application useful.</p>
+                .fillplease {
+                    background-color: blueviolet;
+                    width: 100%;
+                    font-family: cursive;
+                }
+            </style>
+            <table class="fillplease" id = "results_table">
 
-  </body>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="fontchange">Edwards</td>
+                    <td>Giddey</td>
+                    <td>
+                        <p class="important"> Poeltl </p>
+                    </td>
+                    <td>Antetokounmpo</td>
+                </tr>
+                <tr>
+                    <td class="data">FT %</td>
+                    <td class="loser">60</td>
+                    <td class="winner">80</td>
+                    <td>72</td>
+                    <td>68</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>28</td>
+                    <td>31</td>
+                    <td>24</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>Team</td>
+                    <td>Minnesota</td>
+                    <td class="winner">OKC</td>
+                    <td>San Antonio</td>
+                    <td class="tie">Milwaukee</td>
+                </tr>
+                <tr>
+                    <td>3 %</td>
+                    <td>58</td>
+                    <td>27</td>
+                    <td>45</td>
+                    <td>33</td>
+                </tr>
+            </table>
+        </article>
+        <aside class="aside aside-1">
+            <div id="sidebar" class="bigtext">
+                Sort Players By:
+                <ul class="vertical-navbar">
+                    <li><a href="mockup5.html">Assists</a></li>
+                    <li><a href="mockup5.html">Blocks</a></li>
+                    <li><a href="mockup5.html">Flouls</a></li>
+                    <li><a href="mockup5.html">Free Throws</a></li>
+                </ul>
+                Sort Teams By:
+                <ul class="vertical-navbar">
+                    <li><a href="mockup6.html">Wins/Losses</a></li>
+                    <li><a href="mockup6.html">Total Points</a></li>
+                    <li><a href="mockup6.html">etc</a></li>
+                </ul>
+            </div>
+        </aside>
+        <aside class="aside aside-2">
+            <div id="sbc" class="bigtext">Search: (add search box)<br>
+                <input type="search" id="site-search" name="q">
+
+                <button><a href="player_list.html">Search Players</a></button>
+                <button><a href="mockup6.html">Search Teams</a></button>
+                <p class="notetext">search players, teams, etc.</p>
+
+
+
+                <p><button id="authors_button">Get authors</button></p>
+
+                <p>
+                    TABLE BODY START<table id="results_table">(INSIDE)</table>
+                    TABLE BODY END
+                </p>
+
+            </div>
+            <div id="player_stats">
+                player stats tempate
+            </div>
+        </aside>
+        <footer class="footer">Footer</footer>
+    </div>
+
+</body>
+
 </html>
