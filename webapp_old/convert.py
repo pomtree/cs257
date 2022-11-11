@@ -95,37 +95,6 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
         if play_id % 5000 == 0:
             print(play_id)
 
-        if away_play == 'End of Game':
-            # print('end of game')
-            game_id = game_id + 1
-            if home_team not in teams_ppg_dict:
-                teams_ppg_dict[home_team] = int(home_score)
-                games_count[home_team] = 1
-            else:
-                teams_ppg_dict[home_team] += int(home_score)
-                games_count[home_team] += 1
-            if away_team not in teams_ppg_dict:
-                teams_ppg_dict[away_team] = int(away_score)
-                games_count[away_team] = 1
-            else:
-                teams_ppg_dict[away_team] += int(away_score)
-                games_count[away_team] += 1
-
-        if home_team not in teams_rebounds:
-            if rebounder != None:
-                teams_rebounds[home_team] = 1
-            else:
-                teams_rebounds[home_team] += 1
-        else:
-            teams_rebounds[home_team] += 1
-
-        if away_team not in teams_rebounds:
-            if rebounder != None:
-                teams_rebounds[away_team] = 1
-            else:
-                teams_rebounds[away_team] += 1
-        else:
-            teams_rebounds[away_team] += 1
         active_players = [shooter, assister, blocker, fouler, fouled, rebounder, violation_player,
                           ft_shooter, turnover_player, turnover_causer, jb_home_player, jb_away_player]
 
@@ -261,12 +230,7 @@ while i < len(players):
     print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i] + 0.00001))
     print(layup_makes[i]/(layup_makes[i] + layup_misses[i] + 0.00001))
     i = i + 1
-# dictionary of teams ppg
-for key in teams_ppg_dict:
-    ppg_team[key] = teams_ppg_dict[key] / games_count[key]
 
-for key in teams_rebounds:
-    reb_team[key] = teams_rebounds[key] / games_count[key]
 
     if three_pt_makes[i] + three_pt_misses[i] > 0:
         print(three_pt_makes[i]/(three_pt_makes[i] + three_pt_misses[i]))
@@ -276,10 +240,6 @@ for key in teams_rebounds:
     print()
     i = i + 1
 
-for team in teams_ppg_dict:
-    ppg_team[home_team] = teams_ppg_dict[team] / games_count[team]
-
-print(ppg_team)
 
 
 
@@ -305,6 +265,7 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
         home_play = row[12]
         rebounder = row[23]
         assister = row[18]
+
 
         # Teams number of rebounds for one game
         if home_team not in teams_rebounds:
@@ -334,6 +295,131 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
         ot_win = 0
         ot_loss = 0
         if away_play == "End of Game":
+
+
+            if away_team == "ATL":
+                away_team_full_name = "Atlanta Hawks"
+            if home_team == "ATL":
+                home_team_full_name = "Atlanta Hawks"
+            if away_team == "BKN":
+               away_team_full_name = "Brooklyn Nets" 
+            if home_team == "BKN":
+                home_team_full_name = "Brooklyn Nets"
+            if away_team == "BOS":
+                away_team_full_name = "Boston Celtics"
+            if home_team == "BOS":
+                home_team_full_name = "Boston Celtics"
+            if away_team == "CHO":
+                away_team_full_name = "Charlotte Hornets"
+            if home_team == "CHO":
+                home_team_full_name = "Charlotte Hornets"
+            if away_team == "CHI":
+                away_team_full_name = "Chicago Bulls"
+            if home_team == "CHI":
+                home_team_full_name = "Chicago Bulls"
+            if away_team == "CLE":
+                away_team_full_name = "Cleveland Cavaliers"
+            if home_team == "CLE":
+                home_team_full_name = "Cleveland Cavaliers"
+            if away_team == "DAL":
+                away_team_full_name = "Dallas Mavericks"
+            if home_team == "DAL":
+                home_team_full_name = "Dallas Mavericks"
+            if away_team == "DEN":
+                away_team_full_name = "Denver Nuggets"
+            if home_team == "DEN":
+                home_team_full_name = "Denver Nuggets"
+            if away_team == "DET":
+                away_team_full_name = "Detroit Pistons"
+            if home_team == "DET":
+                home_team_full_name = "Detroit Pistons"
+            if away_team == "GSW":
+                away_team_full_name = "Golden State Warriors"
+            if home_team == "GSW":
+                home_team_full_name = "Golden State Warriors"
+            if away_team == "HOU":
+                away_team_full_name = "Houston Rockets"
+            if home_team == "HOU":
+                home_team_full_name = "Houston Rockets"
+            if away_team == "IND":
+                away_team_full_name = "Indiana Pacers"
+            if home_team == "IND":
+                home_team_full_name = "Indiana Pacers"
+            if away_team == "LAC":
+                away_team_full_name = "Los Angeles Clippers"
+            if home_team == "LAC":
+                home_team_full_name = "Los Angeles Clippers"
+            if away_team == "LAL":
+                away_team_full_name = "Los Angeles Lakers"
+            if home_team == "LAL":
+                home_team_full_name = "Los Angeles Lakers"
+            if away_team == "MEM":
+                away_team_full_name = "Memphis Grizzlies"
+            if home_team == "MEM":
+                home_team_full_name = "Memphis Grizzlies"
+            if away_team == "MIA":
+                away_team_full_name = "Miami Heat"
+            if home_team == "MIA":
+                home_team_full_name = "Miami Heat"
+            if away_team == "MIL":
+                away_team_full_name = "Milwaukee Bucks"
+            if home_team == "MIL":
+                home_team_full_name = "Milwaukee Bucks"
+            if away_team == "MIN":
+                away_team_full_name = "Minnesota Timberwolves"
+            if home_team == "MIN":
+                home_team_full_name = "Minnesota Timberwolves"
+            if away_team == "NOP":
+                away_team_full_name = "New Orleans Pelicans"
+            if home_team == "NOP":
+                home_team_full_name = "New Orleans Pelicans"
+            if away_team == "NYK":
+                away_team_full_name = "New York Knicks"
+            if home_team == "NYK":
+                home_team_full_name = "New York Knicks"
+            if away_team == "OKC":
+                away_team_full_name = "Oklahoma City Thunder"
+            if home_team == "OKC":
+                home_team_full_name = "Oklahoma City Thunder"
+            if away_team == "ORL":
+                away_team_full_name = "Orlando Magic"
+            if home_team == "ORL":
+                home_team_full_name = "Orlando Magic"
+            if away_team == "PHI":
+                away_team_full_name = "Philadelphia 76ers"
+            if home_team == "PHI":
+                home_team_full_name = "Philadelphia 76ers"
+            if away_team == "PHX":
+                away_team_full_name = "Phoenix Suns"
+            if home_team == "PHX":
+                home_team_full_name = "Phoenix Suns"
+            if away_team == "POR":
+                away_team_full_name = "Portland Trail Blazers"
+            if home_team == "POR":
+                home_team_full_name = "Portland Trail Blazers"
+            if away_team == "SAC":
+                away_team_full_name = "Sacramento Kings"
+            if home_team == "SAC":
+                home_team_full_name = "Sacramento Kings"
+            if away_team == "SAS":
+                away_team_full_name = "San Antonio Spurs"
+            if home_team == "SAS":
+                home_team_full_name = "San Antonio Spurs"
+            if away_team == "TOR":
+                away_team_full_name = "Toronto Raptors"
+            if home_team == "TOR":
+                home_team_full_name = "Toronto Raptors"
+            if away_team == "UTA":
+                away_team_full_name = "Utah Jazz"
+            if home_team == "UTA":
+                home_team_full_name = "Utah Jazz"
+            if away_team == "WAS":
+                away_team_full_name = "Washington Wizards"
+            if home_team == "WAS":
+                home_team_full_name = "Washington Wizards"
+            
+
+
             if home_team not in team_abr:
                 team_id = len(team_abr) + 1
                 team_abr[home_team] = team_id
@@ -352,7 +438,7 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
 
         
 
-            writer.writerow([team_id, home_team, home_team_win, home_team_loss, home_team_win, home_team_loss, 0, 0, ot_win, ot_loss, home_score, teams_rebounds[home_team], teams_assists[home_team]])
+            writer.writerow([team_id, home_team,home_team_full_name, home_team_win, home_team_loss, home_team_win, home_team_loss, 0, 0, ot_win, ot_loss, home_score, teams_rebounds[home_team], teams_assists[home_team]])
 
 
         # Keeps track of teams games and whether they won at away or not
@@ -372,7 +458,7 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
                 if quarter != 4:
                     ot_win = away_team_win
                     ot_loss = away_team_loss
-            writer.writerow([team_id, away_team, away_team_win, away_team_loss, 0, 0, away_team_win, away_team_loss, ot_win, ot_loss, away_score, teams_rebounds[away_team], teams_assists[away_team]])
+            writer.writerow([team_id, away_team, away_team_full_name, away_team_win, away_team_loss, 0, 0, away_team_win, away_team_loss, ot_win, ot_loss, away_score, teams_rebounds[away_team], teams_assists[away_team]])
 
 
             #Resets dictionary of stats for the next game
