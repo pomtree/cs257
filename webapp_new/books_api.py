@@ -87,7 +87,7 @@ def get_authors():
 
     # '''
     query = '''
-            SELECT team, name, fouls, three_makes, three_attempts
+            SELECT team, name, fouls, three_makes, three_attempts, assists
             FROM players
             ORDER BY
     '''
@@ -95,27 +95,38 @@ def get_authors():
 
     sort_argument = flask.request.args.get('sort')
     if sort_argument == 'team':
-        query += 'birth_year'
+        query += 'team'
+    elif sort_argument == 'assists':
+        query += 'assists DESC'
+        print('sorting by assists??')
     else:# sort_argument == 'name':
         query += 'name'
 
+    print(query)
+
     author_list = []
     try:
+        print('trying ')
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query, tuple())
         for row in cursor:
+            print(row[1])
             author = {'id':row[0],
                       'given_name':row[1],
-                      'surname':row[2],
+                      'surname':row[0],
                       'birth_year':row[3],
-                      'death_year':row[4]}
+                      'death_year':row[4],
+                      'assists':row[5]
+                      }
             author_list.append(author)
+
         cursor.close()
         connection.close()
     except Exception as e:
         print(e, file=sys.stderr)
 
+    print(author_list)
     return json.dumps(author_list)
 
 @api.route('/books/author/<author_id>')
