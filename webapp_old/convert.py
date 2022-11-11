@@ -11,7 +11,7 @@ read_file = 'big_data_file/smaller.csv'
 read_file = 'C:\\Users\\Thomas\\Desktop\\cs257\\cs257 repo - Copy\\webapp_new\\2019-20_pbp.csv'
 read_file = '/mnt/c/Users/Thomas/Desktop/cs257/cs257 repo - Copy/webapp_new/2019-20_pbp.csv'
 
-with open(read_file, errors="ignore") as original_data_file,\
+with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
         open('plays.csv', 'w') as plays_file:
     reader = csv.reader(original_data_file)
     writer = csv.writer(plays_file, lineterminator='\n')
@@ -276,7 +276,108 @@ for key in teams_rebounds:
     print()
     i = i + 1
 
-for team in teams_dict:
-    ppg_team[home_team] = teams_dict[team] / games_count[team]
+for team in teams_ppg_dict:
+    ppg_team[home_team] = teams_ppg_dict[team] / games_count[team]
 
 print(ppg_team)
+
+
+
+
+teams_assists = {}
+teams_rebounds = {}
+team_abr = {}
+with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
+        open('teams.csv', 'w') as teams_file:
+    reader = csv.reader(original_data_file)
+    writer = csv.writer(teams_file, lineterminator='\n')
+    # eat up and ignore the heading row of the data file
+    heading_row = next(reader)
+    for row in reader:
+
+        quarter = row[6]
+        away_play = row[9]
+        away_score = row[10]
+        winning_team = row[5]
+        away_team = row[8]
+        home_team = row[11]
+        home_score = row[13]
+        home_play = row[12]
+        rebounder = row[23]
+        assister = row[18]
+
+        # Teams number of rebounds for one game
+        if home_team not in teams_rebounds:
+            teams_rebounds[home_team] = 0
+        elif rebounder != "" and home_play != "":
+            teams_rebounds[home_team] += 1
+
+        if away_team not in teams_rebounds:
+            teams_rebounds[away_team] = 0
+        elif rebounder != "" and away_play != "":
+            teams_rebounds[away_team] += 1
+
+        # Teams number of assists for one game
+        if home_team not in teams_assists:
+            teams_assists[home_team] = 0
+        elif assister != "" and home_play != "":
+            teams_assists[home_team] += 1
+
+        if away_team not in teams_assists:
+            teams_assists[away_team] = 0
+        elif assister != "" and away_play != "":
+            teams_assists[away_team] += 1
+
+
+        # Keeps track of teams games and whether they won at home or not
+        # Also accounts for overtime wins
+        ot_win = 0
+        ot_loss = 0
+        if away_play == "End of Game":
+            if home_team not in team_abr:
+                team_id = len(team_abr) + 1
+                team_abr[home_team] = team_id
+            if winning_team == home_team:
+                home_team_win = 1
+                home_team_loss = 0
+                if int(quarter) > 4:
+                    ot_win = home_team_win
+                    ot_loss = home_team_loss
+            else:
+                home_team_win = 0
+                home_team_loss = 1
+                if int(quarter) > 4:
+                    ot_win = home_team_win
+                    ot_loss = home_team_loss
+
+        
+
+            writer.writerow([team_id, home_team, home_team_win, home_team_loss, home_team_win, home_team_loss, 0, 0, ot_win, ot_loss, home_score, teams_rebounds[home_team], teams_assists[home_team]])
+
+
+        # Keeps track of teams games and whether they won at away or not
+        # Also accounts for overtime wins
+            if away_team not in team_abr:
+                team_id = len(team_abr) + 1
+                team_abr[away_team] = team_id
+            if winning_team == away_team:
+                away_team_win = 1
+                away_team_loss = 0
+                if quarter != 4:
+                    ot_win = away_team_win
+                    ot_loss = away_team_loss
+            else:
+                away_team_win = 0
+                away_team_loss = 1
+                if quarter != 4:
+                    ot_win = away_team_win
+                    ot_loss = away_team_loss
+            writer.writerow([team_id, away_team, away_team_win, away_team_loss, 0, 0, away_team_win, away_team_loss, ot_win, ot_loss, away_score, teams_rebounds[away_team], teams_assists[away_team]])
+
+
+            #Resets dictionary of stats for the next game
+            teams_rebounds[home_team] = 0
+            teams_rebounds[away_team] = 0
+
+            teams_assists[home_team] = 0
+            teams_assists[away_team] = 0
