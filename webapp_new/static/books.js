@@ -29,10 +29,10 @@ function getAPIBaseURL() {
 function onPBAssistsClicked() {
     console.log('sort by assists clicked...');
     var url = getAPIBaseURL() + '/authors?sort=assists';
-    playerQuery(url);
+    playerQuery(url, 'Assists');
 
 }
-function playerQuery(url) {
+function playerQuery(url, sort_by_arg) {
     fetch(url, { method: 'get' })
 
         .then((response) => response.json())
@@ -42,22 +42,23 @@ function playerQuery(url) {
 
             console.log('resonce found');
             console.log(authorsList.length);
-            var tableBody = '<tr><td><h1>Player</h1></td><td>Assists</td><td>3-pt record</td></h1></tr>';
+            var tableBody = '<tr><td><h1>Team</h1></td><td><h1>Player</h1></td><td>' + sort_by_arg + '</td></tr>';
 
             for (var k = 0; k < authorsList.length; k++) {
                 tableBody += '<tr>';
 
-                tableBody += '<td><a onclick="getAuthor(' + authorsList[k]['id'] + ",'"
-                    + authorsList[k]['given_name'] + ' ' + authorsList[k]['surname'] + "')\">"
-                    + authorsList[k]['surname'] + ', '
-                    + authorsList[k]['given_name'] + '</a></td> + <td>'
-                    + authorsList[k]['assists'] + '</td>';
+                tableBody += '<td>' + authorsList[k]['team'] + '</td>';
 
-                tableBody += '<td>' + authorsList[k]['birth_year'] + '-';
-                if (authorsList[k]['death_year'] != 0) {
-                    tableBody += authorsList[k]['death_year'];
-                }
-                tableBody += '</td>';
+                tableBody += '<td><a onclick="getAuthor([' + authorsList[k]['id'] + ",111,112,113,114,115,116],'"
+                    + authorsList[k]['name'] + ' ' + authorsList[k]['name'] + "')\">"
+                    + authorsList[k]['name'] + '</a></td>';
+
+
+                //tableBody += "<td>" + authorsList[k]['id'] + '</td>';
+
+
+                tableBody += '<td>' + authorsList[k]['assists'] + '</td>';
+
                 tableBody += '</tr>';
             }
             var resultsTableElement = document.getElementById('results_table');
@@ -73,51 +74,7 @@ function playerQuery(url) {
 
 function onAuthorsButtonClicked() {
     var url = getAPIBaseURL() + '/authors';
-
-    // Send the request to the Books API /authors/ endpoint
-    fetch(url, { method: 'get' })
-
-        // When the results come back, transform them from a JSON string into
-        // a Javascript object (in this case, a list of author dictionaries).
-        .then((response) => response.json())
-
-        // Once you have your list of author dictionaries, use it to build
-        // an HTML table displaying the author names and lifespan.
-        .then(function (authorsList) {
-            // Build the table body.
-
-            //create header row?
-
-            var tableBody = '<tr><td><h1>Player</h1></td><td>Assists</td><td>3-pt record</td></h1></tr>';
-
-            for (var k = 0; k < authorsList.length; k++) {
-                tableBody += '<tr>';
-
-                tableBody += '<td><a onclick="getAuthor(' + authorsList[k]['id'] + ",'"
-                    + authorsList[k]['given_name'] + ' ' + authorsList[k]['surname'] + "')\">"
-                    + authorsList[k]['surname'] + ', '
-                    + authorsList[k]['given_name'] + '</a></td> + <td>'
-                    + authorsList[k]['assists'] + '</td>';
-
-                tableBody += '<td>' + authorsList[k]['birth_year'] + '-';
-                if (authorsList[k]['death_year'] != 0) {
-                    tableBody += authorsList[k]['death_year'];
-                }
-                tableBody += '</td>';
-                tableBody += '</tr>';
-            }
-
-            // Put the table body we just built inside the table that's already on the page.
-            var resultsTableElement = document.getElementById('results_table');
-            if (resultsTableElement) {
-                resultsTableElement.innerHTML = tableBody;
-            }
-        })
-
-        // Log the error if anything went wrong during the fetch.
-        .catch(function (error) {
-            console.log(error);
-        });
+    playerQuery(url, 'default catogory');
 }
 
 function getAuthor(authorID, authorName) {
@@ -131,13 +88,39 @@ function getAuthor(authorID, authorName) {
         .then((response) => response.json())
 
         .then(function (booksList) {
-            var tableBody = '<tr><th>' + authorName + '</th></tr>';
+            //var tableBody = '<tr><th>' + authorName + '</th></tr>';
+
+
+
+            var tableBody = '<tr><th>Name</th>';
             for (var k = 0; k < booksList.length; k++) {
-                tableBody += '<tr>';
-                tableBody += '<td>' + booksList[k]['title'] + '</td>';
-                tableBody += '<td>' + booksList[k]['publication_year'] + '</td>';
-                tableBody += '</tr>';
+                tableBody += "<th>" + booksList[k]['name'] + "</th>";
             }
+
+            tableBody += '<tr><td>Team</td>';
+            for (var k = 0; k < booksList.length; k++) {
+                tableBody += "<td>" + booksList[k]['team'] + "</td>";
+            }
+
+
+            tableBody += "</tr><tr><td>3 point</td>";
+            for (var k = 0; k < booksList.length; k++) {
+
+                var three_pct;
+                if (booksList[k]['three_attempts'] > 0) {
+                    var three_pct = booksList[k]['three_makes'] / booksList[k]['three_attempts'] * 100;
+                    three_pct = three_pct + " "
+                    three_pct = three_pct.substring(0, 5) + "%";
+                    three_pct = "" + booksList[k]['three_makes'] + "/" + booksList[k]['three_attempts'] + " (" + three_pct + ")";
+                }
+                else {
+                    three_pct = "" + booksList[k]['three_makes'] + "/" + booksList[k]['three_attempts'];
+                }
+
+                tableBody += "<td>" + three_pct + "</td>";
+            }
+
+
             var resultsTableElement = document.getElementById('results_table');
             if (resultsTableElement) {
                 resultsTableElement.innerHTML = tableBody;
