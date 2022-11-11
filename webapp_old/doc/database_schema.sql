@@ -2,7 +2,7 @@ CREATE TABLE plays (id SERIAL, game_id integer, current_score_h integer, current
 
 CREATE TABLE players (id SERIAL, csv_id text, name text, team_id integer, team text, three_attempts integer, three_makes integer, layup_attempts integer, layup_makes integer, jumper_attempts integer, jumper_makes integer, hook_attempts integer, hook_makes integer, blocks integer, fouls integer, fouled integer, rbs integer, vs integer, ft_attempts integer, ft_makes integer, tos integer, tos_caused integer, assists integer, jb_attempts integer, jb_makes integer);
 
-CREATE TABLE teams (id SERIAL, abbreviation text, name text, wins integer, losses integer, h_wins integer, a_wins integer, ot_wins integer, ot_losses integer, rebounds integer, assists integer);
+CREATE TABLE teams (abbreviation text, name text, wins integer, losses integer, h_wins integer, h_losses integer, a_wins integer, a_losses integer, ot_wins integer, ot_losses integer, points integer, rebounds integer, assists integer);
 
 CREATE TABLE games(id SERIAL, type integer, loc text, date text, time text, winner integer, loser integer, home integer, away integer, w_score integer, l_score integer, qrts integer);
 

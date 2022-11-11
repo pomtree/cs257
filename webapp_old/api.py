@@ -53,7 +53,7 @@ def get_authors():
 
     return json.dumps(quarter_list)
 
-@api.route('/books/author/<author_id>')
+@api.route('/team/')
 def get_books_for_author(author_id):
     query = '''SELECT books.id, books.title, books.publication_year
                FROM books, authors, books_authors
@@ -75,4 +75,36 @@ def get_books_for_author(author_id):
         print(e, file=sys.stderr)
 
     return json.dumps(book_list)
+
+
+
+
+
+
+@api.route('/team/')
+def get_team_stats(team_abr):
+    query = '''
+               SELECT teams.abbreviation, teams.name, SUM(teams.wins),
+               SUM(teams.losses), SUM(teams.h_wins), SUM(teams.h_losses),
+               SUM(teams.a_wins), SUM(teams.a_losses), SUM(teams.ot_wins),
+               SUM(teams.ot_losses), AVG(teams.points), AVG(teams.rebounds), 
+               AVG(teams.assists)
+               FROM teams
+               WHERE teams.abbreviation = %s
+               GROUP BY teams.abbreviation, teams.name
+               '''
+    teams_list = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        cursor.execute(query, (team_abr,))
+        for row in cursor:
+            team = {'abbreviation':row[0], 'full_name':row[1], 'total_wins':row[2], 'total_losses':row[3], 'h_wins':row[4], 'h__losses':row[5], 'a_wins':row[6], 'a_losses':row[7], 'ot_wins':row[8], 'ot_losses':row[9], 'points_per_game':row[10], 'rebounds_per_game':row[11], 'assists_per_game':row[12]}
+            teams_list(team)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        print(e, file=sys.stderr)
+
+    return json.dumps(teams_list)
 

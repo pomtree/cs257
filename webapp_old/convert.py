@@ -247,7 +247,9 @@ while i < len(players):
 teams_assists = {}
 teams_rebounds = {}
 team_abr = {}
-with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
+small = "smaller"
+big = "2019-20_pbp"
+with open("big_data_file/"+ big +".csv", errors="ignore") as original_data_file,\
         open('teams.csv', 'w') as teams_file:
     reader = csv.reader(original_data_file)
     writer = csv.writer(teams_file, lineterminator='\n')
@@ -419,10 +421,6 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
                 home_team_full_name = "Washington Wizards"
             
 
-
-            if home_team not in team_abr:
-                team_id = len(team_abr) + 1
-                team_abr[home_team] = team_id
             if winning_team == home_team:
                 home_team_win = 1
                 home_team_loss = 0
@@ -438,27 +436,26 @@ with open("big_data_file/smaller.csv", errors="ignore") as original_data_file,\
 
         
 
-            writer.writerow([team_id, home_team,home_team_full_name, home_team_win, home_team_loss, home_team_win, home_team_loss, 0, 0, ot_win, ot_loss, home_score, teams_rebounds[home_team], teams_assists[home_team]])
+            writer.writerow([home_team, home_team_full_name, home_team_win, home_team_loss, home_team_win, home_team_loss, 0, 0, ot_win, ot_loss, home_score, teams_rebounds[home_team], teams_assists[home_team]])
 
 
         # Keeps track of teams games and whether they won at away or not
         # Also accounts for overtime wins
-            if away_team not in team_abr:
-                team_id = len(team_abr) + 1
-                team_abr[away_team] = team_id
+
             if winning_team == away_team:
                 away_team_win = 1
                 away_team_loss = 0
-                if quarter != 4:
+                if int(quarter) > 4:
                     ot_win = away_team_win
                     ot_loss = away_team_loss
             else:
                 away_team_win = 0
                 away_team_loss = 1
-                if quarter != 4:
+                if int(quarter) > 4:
                     ot_win = away_team_win
                     ot_loss = away_team_loss
-            writer.writerow([team_id, away_team, away_team_full_name, away_team_win, away_team_loss, 0, 0, away_team_win, away_team_loss, ot_win, ot_loss, away_score, teams_rebounds[away_team], teams_assists[away_team]])
+                    
+            writer.writerow([away_team, away_team_full_name, away_team_win, away_team_loss, 0, 0, away_team_win, away_team_loss, ot_win, ot_loss, away_score, teams_rebounds[away_team], teams_assists[away_team]])
 
 
             #Resets dictionary of stats for the next game
