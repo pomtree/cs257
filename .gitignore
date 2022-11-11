@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 2019-20_pbp.csv
+
+*.csv

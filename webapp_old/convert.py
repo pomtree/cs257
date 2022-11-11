@@ -64,6 +64,8 @@ with open(read_file, errors="ignore") as original_data_file,\
     jb_makes = []
     jb_misses = []
 
+    teams = []
+
     for row in reader:
         play_id = play_id + 1
         url = row[0]
