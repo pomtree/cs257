@@ -17,12 +17,26 @@ function initialize() {
     var element = document.getElementById('authors_button');
     element.onclick = onAuthorsButtonClicked;
 
+    var compare_bar = document.getElementById('compare_bar');
+
+
     var players_by_assists = document.getElementById('players_by_assists');
     var players_by_blocks = document.getElementById('players_by_blocks');
+    var players_by_fouls = document.getElementById('players_by_fouls');
+    var players_by_threes = document.getElementById('players_by_threes');
+    //var players_by_violations = document.getElementById('players_by_violations');
+    //var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused');
 
     players_by_assists.onclick = Assists;
     players_by_blocks.onclick = Blocks;
     players_by_fts.onclick = FTs;
+    players_by_threes.onclick = Threes;
+    players_by_fouls.onclick = Fouls;
+    players_by_violations = Violations;
+    players_by_turnovers_caused = TOsCaused;
+    players_by_threes = Threes;
+
+    compare_bar.onclick = CompareGo;
 
 }
 
@@ -44,10 +58,54 @@ function FTs() {
     var url = getAPIBaseURL() + '/authors?sort=blocks';
     playerQuery(url, 'ft_makes', 'ft_attempts');
 }
+function Threes() {
+    console.log("thre query start");
+    var url = getAPIBaseURL() + '/authors?sort=threes';
+    playerQuery(url, 'three_makes', 'three_attempts');
+}
+function Fouls() {
+    var url = getAPIBaseURL() + '/authors?sort=fouls';
+    playerQuery(url, 'fouls');
+}
+function Violations() {
+    console.log("violations called");
+    var url = getAPIBaseURL() + '/authors?sort=vs';
+    playerQuery(url, 'vs');
+}
+function TOsCaused() {
+    var url = getAPIBaseURL() + '/authors?sort=tos_caused';
+    playerQuery(url, 'tos_caused');
+}
+function CompareGo() {
+    console.log("compare --");
+    checkboxes = document.getElementsByClassName('compare_box');
+    console.log(checkboxes.length);
+    compare_ids = [];
+    for (k = 0; k < checkboxes.length; k++) {
+        if (checkboxes[k].checked) {
+            //console.log(k);
+            //console.log(checkboxes[k].id);
+            compare_ids.push(parseInt(checkboxes[k].id.replace('CBID_', '')));
+        }
+    }
+    console.log(compare_ids);
+    if(compare_ids.length > 5) {
+        //too many elements
+        window.alert('The maximum number of players to compare is 5. You provided ' + compare_ids.length);
+        compare_ids.length = 5;
+    }
+    console.log(compare_ids);
+    if(compare_ids.length == 0) {
+        window.alert('Please select players to compare');
+        return;
+    }
+    console.log('querrying...');
+    getAuthor(compare_ids);
+}
 
 
 
-function playerQuery(url, sort_by_arg) {
+function playerQuery(url, sort_by_arg, sort_by_arg2 = false) {
     fetch(url, { method: 'get' })
 
         .then((response) => response.json())
@@ -57,15 +115,32 @@ function playerQuery(url, sort_by_arg) {
 
             console.log('resonce found');
             console.log(authorsList.length);
-            var tableBody = '<tr><td><h1>Rank</h1></td><td><h1>Team</h1></td><td><h1>Player</h1></td><td><h1 class = \"capitalize\">' + sort_by_arg + '</h1></td></tr>';
+            data = [];
+            tableBody = "<tr><td><h1>Rank</h1></td><td><h1>Team</h1></td><td><h1>Player</h1></td>";
+            for (k = 0; k < authorsList.length; k++) {
+                if (sort_by_arg2) {
+                    console.log('2 sorting args...');
+                    data.push(authorsList[k][sort_by_arg] / authorsList[k][sort_by_arg2]);
+                }
+                else {
+                    data.push(authorsList[k][sort_by_arg]);
+                }
+            }
+            if (sort_by_arg2) {
+                tableBody += '<td><h1 class = \"capitalize\">' + sort_by_arg.replace('_makes', ' %') + '</h1></td><td>Makes</td><td>Attempts</td><td>Compare</td></tr>';
+            }
+            else {
+                tableBody += '<td><h1 class = \"capitalize\">' + sort_by_arg + '</h1></td><td>Compare</td></tr>';
+            }
+
             rank = 1;
-            for (var k = 0; k < authorsList.length; k++) {
+            for (var k = 0; k < data.length; k++) {
                 tableBody += '<tr>';
 
 
 
                 if (k > 0) {
-                    if (authorsList[k][sort_by_arg] < authorsList[k - 1][sort_by_arg]) {
+                    if (data[k] < data[k - 1]) {
                         rank = 1;
                     }
                     else {
@@ -76,11 +151,11 @@ function playerQuery(url, sort_by_arg) {
                     rank = 1;
                 }
                 if (rank <= 1) {
-                    if (k == authorsList.length - 1) {
+                    if (k == data.length - 1) {
                         tableBody += '<td>' + (k - rank + 2) + '</td>';
                     }
                     else {
-                        if (authorsList[k][sort_by_arg] == authorsList[k + 1][sort_by_arg]) {
+                        if (data[k] == data[k + 1]) {
                             tableBody += '<td>=' + (k - rank + 2) + '</td>';
                         }
                         else {
@@ -104,11 +179,18 @@ function playerQuery(url, sort_by_arg) {
                 //tableBody += "<td>" + authorsList[k]['id'] + '</td>';
 
 
-                tableBody += '<td>' + authorsList[k][sort_by_arg] + '</td>';
-
+                if (sort_by_arg2) {
+                    pct = ((data[k] * 100) + "").substring(0, 5) + "%";
+                    tableBody += '<td>' + pct + '</td>';
+                    tableBody += '<td>' + authorsList[k][sort_by_arg] + '</td>';
+                    tableBody += '<td>' + authorsList[k][sort_by_arg2] + '</td>';
+                }
+                else {
+                    tableBody += '<td>' + data[k] + '</td>';
+                }
                 //console.log(authorsList[k]['blocks']);
 
-                tableBody += '</tr>';
+                tableBody += '<td><center><input type=checkbox id=CBID_' + authorsList[k].id + ' class="compare_box"></td ></center ></tr > ';
             }
             var resultsTableElement = document.getElementById('results_table');
             if (resultsTableElement) {
@@ -137,9 +219,6 @@ function getAuthor(authorID, authorName) {
         .then((response) => response.json())
 
         .then(function (booksList) {
-            //var tableBody = '<tr><th>' + authorName + '</th></tr>';
-
-
 
             var tableBody = '<tr><th>Name</th>';
             for (var k = 0; k < booksList.length; k++) {

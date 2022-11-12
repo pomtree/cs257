@@ -6,7 +6,7 @@
     <title>NBA App</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='books.css') }}" />
-    <script type="text/javascript" src="{{ url_for('static', filename='books.js') }}" ></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='books.js') }}"></script>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
 
     <style>
@@ -24,7 +24,7 @@
             <h1 class="headertest"><a href="mockup1.html">NBA App</a></h1>
         </header>
         <article class="main">
-            player comparison of "PLAYER 1" and "PLAYER 2" and .... "PLAYER n":
+
             <style>
                 .winner {
                     background-color: green;
@@ -41,50 +41,18 @@
                 .fillplease {
                     background-color: rgb(255, 255, 255);
                     width: 100%;
-                    
-                }
-                
-            </style>
-            <table class="fillplease" id = "results_table">
 
-                <tr>
-                    <td>&nbsp;</td>
-                    <td class="fontchange">Edwards</td>
-                    <td>Giddey</td>
-                    <td>
-                        <p class="important"> Poeltl </p>
-                    </td>
-                    <td>Antetokounmpo</td>
-                </tr>
-                <tr>
-                    <td class="data">FT %</td>
-                    <td class="loser">60</td>
-                    <td class="winner">80</td>
-                    <td>72</td>
-                    <td>68</td>
-                </tr>
-                <tr>
-                    <td>Age</td>
-                    <td>28</td>
-                    <td>31</td>
-                    <td>24</td>
-                    <td>25</td>
-                </tr>
-                <tr>
-                    <td>Team</td>
-                    <td>Minnesota</td>
-                    <td class="winner">OKC</td>
-                    <td>San Antonio</td>
-                    <td class="tie">Milwaukee</td>
-                </tr>
-                <tr>
-                    <td>3 %</td>
-                    <td>58</td>
-                    <td>27</td>
-                    <td>45</td>
-                    <td>33</td>
-                </tr>
+                }
+            </style>
+            <table class="fillplease" id="results_table">
+
             </table>
+            <ul class="vertical-navbar">
+                <li><a id="compare_bar">Compare Selected Players</a></li>
+            </ul>
+            <button id="compare_go">Compare</button>
+            <p class="compare_p"><a id="compare_p">Compare Selected Players</a></p>
+
         </article>
         <aside class="aside aside-1">
             <div id="sidebar" class="bigtext">
@@ -93,7 +61,10 @@
                     <li><a id="players_by_assists">Assists</a></li>
                     <li><a id="players_by_blocks">Blocks</a></li>
                     <li><a id="players_by_fouls">Flouls</a></li>
+                    <li><a id="players_by_turnovers_caused">Turnovers Caused</a></li>
+                    <li><a id="players_by_violations">Violations</a></li>
                     <li><a id="players_by_fts">Free Throws</a></li>
+                    <li><a id="players_by_threes">3s</a></li>
                 </ul>
                 Sort Teams By:
                 <ul class="vertical-navbar">
@@ -116,8 +87,9 @@
                 <p><button id="authors_button">Get authors</button></p>
 
                 <p>
-                    TABLE BODY START<table id="results_table">(INSIDE)</table>
-                    TABLE BODY END
+                    TABLE BODY START
+                <table id="results_table">(INSIDE)</table>
+                TABLE BODY END
                 </p>
 
             </div>

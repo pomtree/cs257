@@ -19,6 +19,7 @@ import psycopg2
 # application grows.
 api = flask.Blueprint('api', __name__)
 
+limit = 20
 
 ########### Utility functions ###########
 def get_connection():
@@ -37,19 +38,25 @@ def get_connection():
 def get_authors():
     query = '''SELECT id, name, three_attempts, three_makes, layup_attempts, layup_makes , layup_makes , jumper_attempts , jumper_makes , hook_attempts , hook_makes , blocks , fouls , fouled , rbs , vs , ft_attempts , ft_makes , tos , tos_caused, team, assists
         FROM players
-        ORDER BY 
+        
         '''
    
 
     sort_argument = flask.request.args.get('sort')
 
+    if sort_argument == 'threes':
+        query += 'WHERE three_attempts > 10'
+        sort_argument = 'CAST(three_makes AS FLOAT) / CAST(three_attempts AS FLOAT)'
+
+
+
     if sort_argument:
         #query += 'blocks'
-        query += sort_argument
+        query += 'ORDER BY ' + sort_argument
     else:
         query += 'team'
 
-    query += ' DESC LIMIT 50'
+    query += ' DESC LIMIT ' + str(limit)
 
     #print(query)
 

@@ -1,8 +1,9 @@
 '''
 
-SELECT three_makes, three_attempts, CAST(three_makes AS DECIMAL(7,2) ) / three_attempts
+SELECT name, three_makes, three_attempts, CAST(three_makes AS DECIMAL(7,2) ) / three_attempts
         FROM players
         WHERE three_makes > 0
+        AND three_attempts > 25
         ORDER BY CAST(three_makes AS DECIMAL(7,2) ) / three_attempts DESC;
 
 
@@ -12,3 +13,12 @@ WHERE item = 'Flour'
 
 
 '''
+
+
+
+SELECT name, three_makes, three_attempts
+, CAST(three_makes AS FLOAT) / CAST(three_attempts AS FLOAT)
+FROM players
+WHERE three_attempts > 0
+ORDER BY CAST(three_makes AS FLOAT) / CAST(three_attempts AS FLOAT) DESC;
+
