@@ -18,7 +18,12 @@ function initialize() {
     element.onclick = onAuthorsButtonClicked;
 
     var players_by_assists = document.getElementById('players_by_assists');
-    players_by_assists.onclick = onPBAssistsClicked;
+    var players_by_blocks = document.getElementById('players_by_blocks');
+
+    players_by_assists.onclick = Assists;
+    players_by_blocks.onclick = Blocks;
+    players_by_fts.onclick = FTs;
+
 }
 
 // Returns the base URL of the API, onto which endpoint components can be appended.
@@ -26,12 +31,22 @@ function getAPIBaseURL() {
     var baseURL = window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/api';
     return baseURL;
 }
-function onPBAssistsClicked() {
+function Blocks() {
+    var url = getAPIBaseURL() + '/authors?sort=blocks';
+    playerQuery(url, 'blocks');
+}
+function Assists() {
     console.log('sort by assists clicked...');
     var url = getAPIBaseURL() + '/authors?sort=assists';
-    playerQuery(url, 'Assists');
-
+    playerQuery(url, 'assists');
 }
+function FTs() {
+    var url = getAPIBaseURL() + '/authors?sort=blocks';
+    playerQuery(url, 'ft_makes', 'ft_attempts');
+}
+
+
+
 function playerQuery(url, sort_by_arg) {
     fetch(url, { method: 'get' })
 
@@ -42,11 +57,42 @@ function playerQuery(url, sort_by_arg) {
 
             console.log('resonce found');
             console.log(authorsList.length);
-            var tableBody = '<tr><td><h1>Team</h1></td><td><h1>Player</h1></td><td>' + sort_by_arg + '</td></tr>';
-
+            var tableBody = '<tr><td><h1>Rank</h1></td><td><h1>Team</h1></td><td><h1>Player</h1></td><td>' + sort_by_arg + '</td></tr>';
+            rank = 1;
             for (var k = 0; k < authorsList.length; k++) {
                 tableBody += '<tr>';
 
+
+
+                if (k > 0) {
+                    if (authorsList[k][sort_by_arg] < authorsList[k - 1][sort_by_arg]) {
+                        rank = 1;
+                    }
+                    else {
+                        rank++;
+                    }
+                }
+                else {
+                    rank = 1;
+                }
+                if (rank <= 1) {
+                    if (k == authorsList.length - 1) {
+                        tableBody += '<td>' + (k - rank + 2) + '</td>';
+                    }
+                    else {
+                        if (authorsList[k][sort_by_arg] == authorsList[k + 1][sort_by_arg]) {
+                            tableBody += '<td>=' + (k - rank + 2) + '</td>';
+                        }
+                        else {
+
+                            tableBody += '<td>' + (k - rank + 2) + '</td>';
+                        }
+                    }
+                }
+                else {
+                    tableBody += '<td>=' + (k - rank + 2) + '</td>';
+                }
+                //tableBody += '<td>=' + rank + ' | ' + k + '</td>';
                 tableBody += '<td>' + authorsList[k]['team'] + '</td>';
 
                 tableBody += '<td><a onclick="getAuthor([' + authorsList[k]['id'] + ",111,112,113,114,115,116],'"
@@ -57,7 +103,9 @@ function playerQuery(url, sort_by_arg) {
                 //tableBody += "<td>" + authorsList[k]['id'] + '</td>';
 
 
-                tableBody += '<td>' + authorsList[k]['assists'] + '</td>';
+                tableBody += '<td>' + authorsList[k][sort_by_arg] + '</td>';
+
+                //console.log(authorsList[k]['blocks']);
 
                 tableBody += '</tr>';
             }
