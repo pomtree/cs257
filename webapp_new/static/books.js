@@ -57,7 +57,7 @@ function playerQuery(url, sort_by_arg) {
 
             console.log('resonce found');
             console.log(authorsList.length);
-            var tableBody = '<tr><td><h1>Rank</h1></td><td><h1>Team</h1></td><td><h1>Player</h1></td><td>' + sort_by_arg + '</td></tr>';
+            var tableBody = '<tr><td><h1>Rank</h1></td><td><h1>Team</h1></td><td><h1>Player</h1></td><td><h1 class = \"capitalize\">' + sort_by_arg + '</h1></td></tr>';
             rank = 1;
             for (var k = 0; k < authorsList.length; k++) {
                 tableBody += '<tr>';
@@ -90,7 +90,8 @@ function playerQuery(url, sort_by_arg) {
                     }
                 }
                 else {
-                    tableBody += '<td>=' + (k - rank + 2) + '</td>';
+                    //tableBody += '<td>=' + (k - rank + 2) + '</td>';
+                    tableBody += '<td></td>';
                 }
                 //tableBody += '<td>=' + rank + ' | ' + k + '</td>';
                 tableBody += '<td>' + authorsList[k]['team'] + '</td>';
@@ -150,23 +151,42 @@ function getAuthor(authorID, authorName) {
                 tableBody += "<td>" + booksList[k]['team'] + "</td>";
             }
 
+            tableBody += '<tr><td>Assists</td>' + basic_stat_row_gen(booksList, "assists");
 
-            tableBody += "</tr><tr><td>3 point</td>";
-            for (var k = 0; k < booksList.length; k++) {
+            tableBody += '<tr><td>Blocks</td>' + basic_stat_row_gen(booksList, "blocks");
 
-                var three_pct;
-                if (booksList[k]['three_attempts'] > 0) {
-                    var three_pct = booksList[k]['three_makes'] / booksList[k]['three_attempts'] * 100;
-                    three_pct = three_pct + " "
-                    three_pct = three_pct.substring(0, 5) + "%";
-                    three_pct = "" + booksList[k]['three_makes'] + "/" + booksList[k]['three_attempts'] + " (" + three_pct + ")";
-                }
-                else {
-                    three_pct = "" + booksList[k]['three_makes'] + "/" + booksList[k]['three_attempts'];
-                }
+            tableBody += '<tr><td>Fouls</td>' + basic_stat_row_gen(booksList, "fouls", true);
 
-                tableBody += "<td>" + three_pct + "</td>";
-            }
+            //broken rows commented out
+            //tableBody += '<tr><td>Fouled</td>' + basic_stat_row_gen(booksList, "fouled");
+
+            //tableBody += '<tr><td>Rebounds</td>' + basic_stat_row_gen(booksList, "rbs");
+
+            tableBody += '<tr><td>Violations</td>' + basic_stat_row_gen(booksList, "vs", true);
+
+            //tableBody += '<tr><td>Turnovers</td>' + basic_stat_row_gen(booksList, "tos", true);
+
+            tableBody += '<tr><td>Turnovers Caused</td>' + basic_stat_row_gen(booksList, "tos_caused");
+
+
+            tableBody += "</tr><tr><td>3 point % </td>";
+            tableBody += pct_gen(booksList, "three");
+
+            tableBody += "</tr><tr><td>layup % </td>";
+            tableBody += pct_gen(booksList, "layup");
+
+            tableBody += "</tr><tr><td>jump % </td>";
+            tableBody += pct_gen(booksList, "jumper");
+
+            //currently broken: (see to do)
+            // tableBody += "</tr><tr><td>hook % </td>";
+            // tableBody += pct_gen(booksList, "hook");
+
+            // tableBody += "</tr><tr><td>dunk % </td>";
+            // tableBody += pct_gen(booksList, "dunk");            
+
+            //tableBody += "</tr><tr><td>free throw % </td>";
+            //tableBody += pct_gen(booksList, "ft");
 
 
             var resultsTableElement = document.getElementById('results_table');
@@ -179,4 +199,124 @@ function getAuthor(authorID, authorName) {
             console.log(error);
         });
 }
+function basic_stat_row_gen(booksList, stat, reverse = false) {
+    output = "";
+    stat_list = [];
+    for (k = 0; k < booksList.length; k++) {
+        stat_list.push(booksList[k][stat])
+    }
+    if (reverse) {
+        console.log("reverse" + stat);
+        min_arr = max(stat_list);
+        max_arr = min(stat_list);
+    }
+    else {
+        max_arr = max(stat_list);
+        min_arr = min(stat_list);
+    }
+    for (var k = 0; k < booksList.length; k++) {
+        if (max_arr.includes(k)) {
+            output += "<td class = \"winner\">" + stat_list[k] + "</td>";
+        }
+        else if (min_arr.includes(k) || stat[k] == 0) {
+            console.log(min_arr);
+            output += "<td class = \"loser\">" + stat_list[k] + "</td>";
+        }
+        else {
+            output += "<td>" + stat_list[k] + "</td>";
+        }
+    }
+    return output;
+}
 
+function pct_gen(booksList, type) {
+    attempts = type + "_attempts";
+    makes = type + "_makes";
+    tableBody = "";
+    var pcts = [];
+    var pcts_strings = [];
+    for (var k = 0; k < booksList.length; k++) {
+
+        var pct;
+
+        if (booksList[k][attempts] > 0) {
+            var pct = booksList[k][makes] / booksList[k][attempts] * 100;
+            //cts.push(parseInt(pct));
+            pcts.push(pct);
+            pct = pct + "";
+            pct = pct.substring(0, 5) + "%";
+            pct.replace(' ', '');
+            //pct = "" + booksList[k]['makes'] + "/" + booksList[k]['attempts'] + " (" + pct + ")";
+            pct = pct + " (" + booksList[k][makes] + "/" + booksList[k][attempts] + ")";
+        }
+        else {
+            pcts.push(0);
+            pct = "" + booksList[k][makes] + "/" + booksList[k][attempts];
+        }
+        pcts_strings.push(pct);
+
+
+    }
+    max_arr = max(pcts);
+    min_arr = min(pcts);
+    for (var k = 0; k < booksList.length; k++) {
+        if (max_arr.includes(k)) {
+            tableBody += "<td class = \"winner\">" + pcts_strings[k] + "</td>";
+        }
+        else if (min_arr.includes(k) || pcts[k] == 0) {
+            console.log(min_arr);
+            tableBody += "<td class = \"loser\">" + pcts_strings[k] + "</td>";
+        }
+        else {
+            tableBody += "<td>" + pcts_strings[k] + "</td>";
+        }
+        //tableBody += "<td>" + Math.max(pcts) + ' | ' + pcts[k] + "</td>";
+        //console.log(Math.max(float_array));
+        //console.log(pcts);
+        //console.log(max(pcts));
+        //console.log(float_array);
+    }
+    return tableBody;
+
+}
+
+
+
+function max(array) {
+    var current_max = -1;
+    var max_pos = [];
+    var i = 0;
+    while (i < array.length) {
+        if (array[i] > current_max) {
+            max_pos = [i];
+            current_max = array[i];
+        }
+        else if (array[i] == current_max) {
+            max_pos.push(i);
+        }
+        i++;
+    }
+    return max_pos;
+}
+function min(array) {
+    var current_min = Infinity;
+    var min_pos = [];
+    var i = 0;
+    while (i < array.length) {
+        if (array[i] == 0) {
+            min_pos.push(i);
+        }
+        else if (array[i] < current_min) {
+            console.log("reset min");
+            min_pos = [];
+            min_pos.push(i);
+            current_min = array[i];
+        }
+        else if (array[i] == current_min) {
+            console.log("min equal");
+            min_pos.push(i);
+        }
+        i++;
+    }
+    return min_pos;
+}

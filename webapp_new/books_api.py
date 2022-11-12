@@ -97,7 +97,7 @@ def get_authors():
 
 @api.route('/books/author/<author_id>')
 def get_books_for_author(author_id):
-    query = '''SELECT id, name, three_attempts, three_makes, layup_attempts, layup_makes , layup_makes , jumper_attempts , jumper_makes , hook_attempts , hook_makes , blocks , fouls , fouled , rbs , vs , ft_attempts , ft_makes , tos , tos_caused, team
+    query = '''SELECT id, name, three_attempts, three_makes, layup_attempts, layup_makes , layup_makes , jumper_attempts , jumper_makes , hook_attempts , hook_makes , blocks , fouls , fouled , rbs , vs , ft_attempts , ft_makes , tos , tos_caused, team, assists
     FROM players '''
 
     id_string = author_id
@@ -141,7 +141,8 @@ def get_books_for_author(author_id):
                     'ft_makes': row[17],
                     'tos': row[18],
                     'tos_caused': row[19],
-                    'team': row[20]
+                    'team': row[20],
+                    'assists': row[21]
                     }
         
 
