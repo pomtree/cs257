@@ -44,28 +44,46 @@ def get_authors():
 
     sort_argument = flask.request.args.get('sort')
 
+    search_argument = flask.request.args.get('q')
+
     if sort_argument == 'threes':
         query += 'WHERE three_attempts > 10'
         sort_argument = 'CAST(three_makes AS FLOAT) / CAST(three_attempts AS FLOAT)'
+
+    print('hello?')
+
+    if search_argument:
+
+        
+
+        print(search_argument)
+        print(search_argument.split(', '))
+        for search in search_argument.split(','):
+            print(search.strip())
+            if query.__contains__('WHERE'):
+                query += ' OR '
+            else:
+                query += ' WHERE '
+            print('querry append...')
+            query += 'UPPER(name) LIKE \'%' + search.strip().upper() + '%\' '
+
 
 
 
     if sort_argument:
         #query += 'blocks'
-        query += 'ORDER BY ' + sort_argument
-    else:
-        query += 'team'
+        query += 'ORDER BY ' + sort_argument + ' DESC'
 
-    query += ' DESC LIMIT ' + str(limit)
+    query += ' LIMIT ' + str(limit)
 
-    #print(query)
+    print(query)
 
     author_list = []
     try:
         print('trying ')
         connection = get_connection()
         cursor = connection.cursor()
-        cursor.execute(query, tuple())
+        cursor.execute(query)
         for row in cursor:
             # print(row[1])
             author = {'id': row[0],

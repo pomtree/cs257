@@ -17,25 +17,37 @@ function initialize() {
     var element = document.getElementById('authors_button');
     element.onclick = onAuthorsButtonClicked;
 
-    var compare_bar = document.getElementById('compare_bar');
+    var search_players_go = document.getElementById('player_search_bar_go');
+    search_players_go.onclick = SearchPlayers;
+
+    var instant_compare = document.getElementById('instant_compare');
+    instant_compare.onclick = InstantCompare;
 
 
     var players_by_assists = document.getElementById('players_by_assists');
     var players_by_blocks = document.getElementById('players_by_blocks');
     var players_by_fouls = document.getElementById('players_by_fouls');
+
     var players_by_threes = document.getElementById('players_by_threes');
-    //var players_by_violations = document.getElementById('players_by_violations');
-    //var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused');
+
+    var players_by_violations = document.getElementById('players_by_violations');
+
+    console.log(players_by_violations);
+    console.log(players_by_assists);
+
+    var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused');
 
     players_by_assists.onclick = Assists;
     players_by_blocks.onclick = Blocks;
     players_by_fts.onclick = FTs;
     players_by_threes.onclick = Threes;
     players_by_fouls.onclick = Fouls;
-    players_by_violations = Violations;
-    players_by_turnovers_caused = TOsCaused;
+    players_by_violations.onclick = Violations;
+    players_by_turnovers_caused.onclick = TOsCaused;
     players_by_threes = Threes;
 
+
+    var compare_bar = document.getElementById('compare_bar');
     compare_bar.onclick = CompareGo;
 
 }
@@ -47,34 +59,34 @@ function getAPIBaseURL() {
 }
 function Blocks() {
     var url = getAPIBaseURL() + '/authors?sort=blocks';
-    playerQuery(url, 'blocks');
+    playerQuery('Blocks', url, 'blocks');
 }
 function Assists() {
     console.log('sort by assists clicked...');
     var url = getAPIBaseURL() + '/authors?sort=assists';
-    playerQuery(url, 'assists');
+    playerQuery('Assists', url, 'assists');
 }
 function FTs() {
     var url = getAPIBaseURL() + '/authors?sort=blocks';
-    playerQuery(url, 'ft_makes', 'ft_attempts');
+    playerQuery('Free Throw %', url, 'ft_makes', 'ft_attempts');
 }
 function Threes() {
     console.log("thre query start");
     var url = getAPIBaseURL() + '/authors?sort=threes';
-    playerQuery(url, 'three_makes', 'three_attempts');
+    playerQuery('Three %', url, 'three_makes', 'three_attempts');
 }
 function Fouls() {
     var url = getAPIBaseURL() + '/authors?sort=fouls';
-    playerQuery(url, 'fouls');
+    playerQuery('Fouls', url, 'fouls');
 }
 function Violations() {
     console.log("violations called");
     var url = getAPIBaseURL() + '/authors?sort=vs';
-    playerQuery(url, 'vs');
+    playerQuery('Violations', url, 'vs');
 }
 function TOsCaused() {
     var url = getAPIBaseURL() + '/authors?sort=tos_caused';
-    playerQuery(url, 'tos_caused');
+    playerQuery('Turnovers Caused', url, 'tos_caused');
 }
 function CompareGo() {
     console.log("compare --");
@@ -89,23 +101,99 @@ function CompareGo() {
         }
     }
     console.log(compare_ids);
-    if(compare_ids.length > 5) {
+    if (compare_ids.length > 5) {
         //too many elements
         window.alert('The maximum number of players to compare is 5. You provided ' + compare_ids.length);
         compare_ids.length = 5;
     }
     console.log(compare_ids);
-    if(compare_ids.length == 0) {
+    if (compare_ids.length == 0) {
         window.alert('Please select players to compare');
         return;
     }
     console.log('querrying...');
-    getAuthor(compare_ids);
+    comparePlayers(compare_ids);
+}
+function InstantCompare() {
+    search_input = document.getElementById("search");
+    console.log(search_input.value);
+    url = getAPIBaseURL() + '/authors?q=' + search_input.value;
+    fetch(url, { method: 'get' })
+        .then((response) => response.json())
+
+
+        .then(function (playerResults) {
+
+            ids = [];
+            for(var k = 0; k < playerResults.length; k++) {
+                ids.push(playerResults[k]['id']);
+            }
+            console.log(ids);
+            comparePlayers(ids);
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+}
+
+function SearchPlayers() {
+    search_input = document.getElementById("search");
+    console.log(search_input.value);
+    url = getAPIBaseURL() + '/authors?q=' + search_input.value;
+    fetch(url, { method: 'get' })
+        .then((response) => response.json())
+
+
+        .then(function (playerResults) {
+
+            console.log('resonce found');
+            console.log(playerResults.length);
+            tableBody = "<tr><td><h1>Team</h1></td><td><h1>Player</h1></td><td>Compare</td></tr>";
+
+            //tableBody += '<td>=' + rank + ' | ' + k + '</td>';
+            for (k = 0; k < playerResults.length; k++) {
+                tableBody += '<td>' + playerResults[k]['team'] + '</td>';
+
+                tableBody += '<td><a onclick="comparePlayers([' + playerResults[k]['id'] + "],'"
+                    + playerResults[k]['name'] + ' ' + playerResults[k]['name'] + "')\">"
+                    + playerResults[k]['name'] + '</a></td>';
+
+
+                tableBody += '<td><center><input type=checkbox id=CBID_' + playerResults[k].id + ' class="compare_box"></td ></center ></tr > ';
+            }
+
+            tableBody += '<ul class="vertical-navbar"><li><a id="compare_bar">(broken compare)</a></li></ul>';
+
+            var resultsTableElement = document.getElementById('results_table');
+            if (resultsTableElement) {
+                resultsTableElement.innerHTML = tableBody;
+            }
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
 }
 
 
 
-function playerQuery(url, sort_by_arg, sort_by_arg2 = false) {
+
+function playerQuery(title, url, sort_by_arg, sort_by_arg2 = false) {
+
+    console.log('pq nm 1: ' + sort_by_arg + ' 2 ' + sort_by_arg2);
+
+    playerQueryMain(title, url, sort_by_arg, sort_by_arg2);
+
+
+    var compare_bar = document.getElementById('compare_bar');
+    compare_bar.onclick = CompareGo;
+
+}
+
+function playerQueryMain(title, url, sort_by_arg, sort_by_arg2) {
     fetch(url, { method: 'get' })
 
         .then((response) => response.json())
@@ -113,7 +201,7 @@ function playerQuery(url, sort_by_arg, sort_by_arg2 = false) {
 
         .then(function (authorsList) {
 
-            console.log('resonce found');
+            console.log('resonce found' + sort_by_arg + ' 2:' + sort_by_arg2);
             console.log(authorsList.length);
             data = [];
             tableBody = "<tr><td><h1>Rank</h1></td><td><h1>Team</h1></td><td><h1>Player</h1></td>";
@@ -130,7 +218,7 @@ function playerQuery(url, sort_by_arg, sort_by_arg2 = false) {
                 tableBody += '<td><h1 class = \"capitalize\">' + sort_by_arg.replace('_makes', ' %') + '</h1></td><td>Makes</td><td>Attempts</td><td>Compare</td></tr>';
             }
             else {
-                tableBody += '<td><h1 class = \"capitalize\">' + sort_by_arg + '</h1></td><td>Compare</td></tr>';
+                tableBody += '<td><h1 class = \"capitalize\">' + title + '</h1></td><td>Compare</td></tr>';
             }
 
             rank = 1;
@@ -171,7 +259,7 @@ function playerQuery(url, sort_by_arg, sort_by_arg2 = false) {
                 //tableBody += '<td>=' + rank + ' | ' + k + '</td>';
                 tableBody += '<td>' + authorsList[k]['team'] + '</td>';
 
-                tableBody += '<td><a onclick="getAuthor([' + authorsList[k]['id'] + ",111,112,113,114,115,116],'"
+                tableBody += '<td><a onclick="comparePlayers([' + authorsList[k]['id'] + "],'"
                     + authorsList[k]['name'] + ' ' + authorsList[k]['name'] + "')\">"
                     + authorsList[k]['name'] + '</a></td>';
 
@@ -192,6 +280,7 @@ function playerQuery(url, sort_by_arg, sort_by_arg2 = false) {
 
                 tableBody += '<td><center><input type=checkbox id=CBID_' + authorsList[k].id + ' class="compare_box"></td ></center ></tr > ';
             }
+            tableBody += '<ul class="vertical-navbar"><li><a id="compare_bar">(broken compare)</a></li></ul>';
             var resultsTableElement = document.getElementById('results_table');
             if (resultsTableElement) {
                 resultsTableElement.innerHTML = tableBody;
@@ -208,7 +297,7 @@ function onAuthorsButtonClicked() {
     playerQuery(url, 'default catogory');
 }
 
-function getAuthor(authorID, authorName) {
+function comparePlayers(authorID, authorName) {
     // Very similar pattern to onAuthorsButtonClicked, so I'm not
     // repeating those comments here. Read through this code
     // and see if it makes sense to you.
@@ -251,10 +340,10 @@ function getAuthor(authorID, authorName) {
             tableBody += "</tr><tr><td>3 point % </td>";
             tableBody += pct_gen(booksList, "three");
 
-            tableBody += "</tr><tr><td>layup % </td>";
+            tableBody += "</tr><tr><td>Layup % </td>";
             tableBody += pct_gen(booksList, "layup");
 
-            tableBody += "</tr><tr><td>jump % </td>";
+            tableBody += "</tr><tr><td>Jump % </td>";
             tableBody += pct_gen(booksList, "jumper");
 
             //currently broken: (see to do)
@@ -294,10 +383,10 @@ function basic_stat_row_gen(booksList, stat, reverse = false) {
         min_arr = min(stat_list);
     }
     for (var k = 0; k < booksList.length; k++) {
-        if (max_arr.includes(k)) {
+        if (max_arr.includes(k) && booksList.length > 1) {
             output += "<td class = \"winner\">" + stat_list[k] + "</td>";
         }
-        else if (min_arr.includes(k) || stat[k] == 0) {
+        else if ((min_arr.includes(k) || stat[k] == 0) && booksList.length > 1) {
             console.log(min_arr);
             output += "<td class = \"loser\">" + stat_list[k] + "</td>";
         }

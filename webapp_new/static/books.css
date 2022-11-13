@@ -84,6 +84,9 @@ p.compare_p a:hover {
   color: white;
 }
 
+#compare_bar {
+  text-align: right;
+}
 
 
 table tr:hover {
