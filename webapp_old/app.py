@@ -10,12 +10,12 @@ import flask
 import argparse
 import api
 
-app = flask.Flask(__name__, static_folder='static', template_folder='templates')
+app = flask.Flask(__name__, static_folder='static', template_folder='mockups')
 app.register_blueprint(api.api, url_prefix='/api')
 
 @app.route('/') 
-def home():
-    return flask.render_template('index.html')
+def get_main_page():
+    return flask.render_template('mockup2.html')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A books-and-authors application, including API & DB')
