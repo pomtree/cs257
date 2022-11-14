@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NBA App</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+
+    <style>
+        #wrapID {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper" id="wrapID">
+        <header class="header">
+            <h1 class="headertest"><a href="mockup1.html">NBA App</a></h1>
+        </header>
+        <article class="main">
+
+            <style>
+                .winner {
+                    background-color: green;
+                }
+
+                .loser {
+                    background-color: red;
+                }
+
+                .tie {
+                    background-color: yellow;
+                }
+
+                .fillplease {
+                    background-color: rgb(255, 255, 255);
+                    width: 100%;
+
+                }
+            </style>
+            <table class="fillplease" id="results_table">
+
+            </table>
+            <ul class="vertical-navbar">
+                <li><a id="compare_bar">Compare Selected Players</a></li>
+            </ul>
+        </article>
+        <aside class="aside aside-1">
+            <div id="sidebar" class="bigtext">
+                Sort Players By:
+                <ul class="vertical-navbar">
+                    <li><a id="players_by_assists">Assists</a></li>
+                    <li><a id="players_by_blocks">Blocks</a></li>
+                    <li><a id="players_by_fouls">Flouls</a></li>
+                    <li><a id="players_by_turnovers_caused">Turnovers Caused</a></li>
+                    <li><a id="players_by_violations">Violations</a></li>
+                    <li><a id="players_by_fts">Free Throws</a></li>
+                    <li><a id="players_by_threes">3s</a></li>
+                </ul>
+                Sort Teams By:
+                <ul class="vertical-navbar">
+                    <li><a href="mockup6.html">Wins/Losses</a></li>
+                    <li><a href="mockup6.html">Total Points</a></li>
+                    <li><a href="mockup6.html">etc</a></li>
+                </ul>
+            </div>
+        </aside>
+        <aside class="aside aside-2">
+            <div id="sbc" class="bigtext">Search: (add search box)<br>
+                <input type="search" id="search" name="q">
+                <ul class="vertical-navbar">
+                    <li><a id="player_search_bar_go">Search Players</a></li>
+                    <li><a id="instant_compare">Instant Compare</a></li>
+                </ul>
+                <button><a href="player_list.html">Search Players</a></button>
+                <button><a href="mockup6.html">Search Teams</a></button>
+                <p class="notetext">search players, teams, etc.</p>
+
+
+
+                <p><button id="authors_button">Get authors</button></p>
+
+                <p>
+                    TABLE BODY START
+                <table id="results_table">(INSIDE)</table>
+                TABLE BODY END
+                </p>
+
+            </div>
+            <div id="player_stats">
+                player stats tempate
+            </div>
+        </aside>
+        <footer class="footer">Footer</footer>
+    </div>
+
+</body>
+
+</html>

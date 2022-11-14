@@ -1,0 +1,36 @@
+Doug Pham and Tom Pree
+October 28, 2022
+
+Dataset:
+All NBA games and stats during the 2019-2020 season
+Link to dataset: https://sports-statistics.com/database/basketball-data/nba/2019-20_pbp.csv
+    -Should automatically download as csv file
+
+DESCRIPTION:
+    The csv is all the nba games played in the 2019-2020 season and has
+    many different varying fields such as the homecourt, winner of a game,
+    the result of the play, the foul (if one occured) and much more data.
+
+STORY: A fantasy basketball player wants to see the teams
+      with the hightest winning percentage with home court 
+      advantage.
+
+IMPLEMENTATION: One way to do this would be we make column
+                of fields from the csv where the user can then
+                filter through, by typing in a search bar, for
+                specific players or teams, where they could 
+                then get the team winning home court advantage 
+                percent
+
+STORY: A Timberwolves fan wants to do a side-by-side comparison
+       between their next opponent to see how they match up 
+       against the opponent stats-wise
+
+IMPLEMENTATION: On the homepage we implement a way to select a team 
+                and view the stats for that team. We would then have
+                a button which says click to "Compare to Another Team"
+                and once clicked a drop-down menu appears for another
+                team which can be selected and then compare the stats
+                of the two teams
+
+
