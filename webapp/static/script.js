@@ -45,8 +45,8 @@ function initialize() {
     players_by_threes = Threes;
 
 
-    var compare_bar = document.getElementById('compare_bar');
-    compare_bar.onclick = CompareGo;
+    // var compare_bar = document.getElementById('compare_bar');
+    // compare_bar.onclick = CompareGo;
 
     console.log('thing')
     console.log(loadTeamSelector)
