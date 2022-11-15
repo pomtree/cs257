@@ -123,10 +123,15 @@ function InstantCompare() {
         .then(function (playerResults) {
 
             ids = [];
-            for(var k = 0; k < playerResults.length; k++) {
+            for (var k = 0; k < playerResults.length; k++) {
                 ids.push(playerResults[k]['id']);
             }
             console.log(ids);
+            if (ids.length > 5) {
+                //too many elements
+                window.alert('Query returned more than 5 results (' + ids.length + '). Results will be limited to first 5 results.');
+                ids.length = 5;
+            }
             comparePlayers(ids);
 
         })
@@ -162,12 +167,8 @@ function SearchPlayers() {
                 tableBody += '<td><center><input type=checkbox id=CBID_' + playerResults[k].id + ' class="compare_box"></td ></center ></tr > ';
             }
 
-            tableBody += '<ul class="vertical-navbar"><li><a id="compare_bar">(broken compare)</a></li></ul>';
-
-            var resultsTableElement = document.getElementById('results_table');
-            if (resultsTableElement) {
-                resultsTableElement.innerHTML = tableBody;
-            }
+            writeTable(tableBody);
+            writeCompareBar();
 
         })
         .catch(function (error) {
@@ -176,7 +177,32 @@ function SearchPlayers() {
 
 }
 
+function writeTable(tableBody) {
+    var resultsTableElement = document.getElementById('results_table');
+    if (resultsTableElement) {
+        //console.log(tableBody);
+        resultsTableElement.innerHTML = tableBody;
+    }
+    writeCompareBar(true);
 
+}
+
+function writeCompareBar(blank = false) {
+    var ulElement = document.getElementById('compare_list');
+    if (ulElement) {
+        if (blank) {
+            ulElement.innerHTML = '';
+        }
+        else {
+            ulElement.innerHTML = '<li><a id="compare_bar">Compare Selected Players</a></li>';
+            compare_bar = document.getElementById('compare_bar');
+            compare_bar.onclick = CompareGo;
+        }
+
+    }
+
+
+}
 
 
 function playerQuery(title, url, sort_by_arg, sort_by_arg2 = false) {
@@ -274,12 +300,9 @@ function playerQueryMain(title, url, sort_by_arg, sort_by_arg2) {
 
                 tableBody += '<td><center><input type=checkbox id=CBID_' + playerList[k].id + ' class="compare_box"></td ></center ></tr > ';
             }
-            tableBody += '<ul class="vertical-navbar"><li><a id="compare_bar">(broken compare)</a></li></ul>';
-            var resultsTableElement = document.getElementById('results_table');
-            if (resultsTableElement) {
-                resultsTableElement.innerHTML = tableBody;
-            }
-
+            //tableBody += '<ul class="vertical-navbar"><li><a id="compare_bar">(broken compare)</a></li></ul>';
+            writeTable(tableBody);
+            writeCompareBar();
         })
         .catch(function (error) {
             console.log(error);
@@ -347,16 +370,18 @@ function comparePlayers(playerIDs) {
             //tableBody += pct_gen(playersList, "ft");
 
 
-            var resultsTableElement = document.getElementById('results_table');
-            if (resultsTableElement) {
-                resultsTableElement.innerHTML = tableBody;
-            }
+            writeTable(tableBody);
+
+            //Bar();
         })
 
         .catch(function (error) {
             console.log(error);
         });
 }
+
+
+
 function basic_stat_row_gen(playersList, stat, reverse = false) {
     output = "";
     stat_list = [];
@@ -418,10 +443,10 @@ function pct_gen(playersList, type) {
     max_arr = max(pcts);
     min_arr = min(pcts);
     for (var k = 0; k < playersList.length; k++) {
-        if (max_arr.includes(k)) {
+        if (max_arr.includes(k) && playersList.length > 1) {
             tableBody += "<td class = \"winner\">" + pcts_strings[k] + "</td>";
         }
-        else if (min_arr.includes(k) || pcts[k] == 0) {
+        else if ((min_arr.includes(k) || pcts[k] == 0) && playersList.length > 1) {
             console.log(min_arr);
             tableBody += "<td class = \"loser\">" + pcts_strings[k] + "</td>";
         }
