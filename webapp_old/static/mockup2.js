@@ -16,10 +16,10 @@ function initialize() {
         element.onchange = onTeamSelectionChanged;
     }
 
-    var button = document.getElementById('addTeam');
-    button.onclick = compareTeam
-    var button2 = document.getElementById('backHome');
-    button.onclick = backToHome
+    // var button = document.getElementById('addTeam');
+    // button.onclick = compareTeam
+    // var button2 = document.getElementById('backHome');
+    // button.onclick = backToHome
 }
 
 
@@ -57,7 +57,7 @@ function loadTeamSelector() {
         }
         let selector = document.getElementById('team_selector');
         if (selector) {
-            selector.innterHTML = selectorBody;
+            selector.innerHTML = selectorBody;
         }
     })
     .catch(function(error) {
@@ -83,17 +83,13 @@ function onTeamSelectionChanged() {
             let team = teams[k];
             tableBody += '<tr>'
                             + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['total_wins'] + '-' + team[total_losses]+ '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
-                            + '<td>' + team['full_name'] + '</td>'
+                            + '<td>' + team['total_wins'] + ' - ' + team['total_losses']+ '</td>'
+                            + '<td>' + team['h_wins'] + ' - ' + team['h_losses'] + '</td>'
+                            + '<td>' + team['a_wins'] + ' - ' + team['a_losses'] + '</td>'
+                            + '<td>' + team['ot_wins'] + ' - ' + team['ot_losses'] + '</td>'
+                            + '<td>' + team['points_per_game'] + '</td>'
+                            + '<td>' + team['rebounds_per_game'] + '</td>'
+                            + '<td>' + team['assists_per_game'] + '</td>'
                             + '</tr>\n';
             // 'full_name':row[1], 'total_wins':row[2], 'total_losses':row[3], 'h_wins':row[4], 'h__losses':row[5], 'a_wins':row[6], 'a_losses':row[7], 'ot_wins':row[8], 'ot_losses':row[9], 'points_per_game':row[10], 'rebounds_per_game':row[11], 'assists_per_game':row[12]
         }
@@ -108,11 +104,4 @@ function onTeamSelectionChanged() {
     });
 }
 
-function compareTeam(){
-    //Adds other team to screen
-}
-
-function backToHome() {
-    //Returns to home screen
-}
 
