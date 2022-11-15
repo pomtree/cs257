@@ -15,11 +15,6 @@ function initialize() {
     if (element) {
         element.onchange = onTeamSelectionChanged;
     }
-
-    // var button = document.getElementById('addTeam');
-    // button.onclick = compareTeam
-    // var button2 = document.getElementById('backHome');
-    // button.onclick = backToHome
 }
 
 
@@ -51,7 +46,7 @@ function loadTeamSelector() {
         for (let k = 0; k < teams.length; k++) {
             let team = teams[k];
             selectorBody += '<option value="' + team['abbreviation'] + '">'
-            + team['abbreviation'] + ': ' + team['full_name']
+            + team['abbreviation'] //+ ': ' + team['full_name']
             + '</option>\n'
 
         }
@@ -66,11 +61,11 @@ function loadTeamSelector() {
 }
 
 function onTeamSelectionChanged() {
-    let element = document.getElementById('team_selector');
-    if (!element) {
-        return;
-    }
-    let teamID = element.value;
+    // let element = document.getElementById('team_selector');
+    // if (!element) {
+    //     return;
+    // }
+    let teamID = this.value;
     let url = getAPIBaseURL() + '/teams/team_stat/' + teamID;
 
     fetch(url, {method: 'get'})
@@ -81,8 +76,19 @@ function onTeamSelectionChanged() {
         let tableBody = '';
         for (let k = 0; k < teams.length; k++) {
             let team = teams[k];
-            tableBody += '<tr>'
-                            + '<td>' + team['full_name'] + '</td>'
+            tableBody +=    '<tr> <td> 2019-20 Team Stats <td> <tr>\n'
+                            + '<tr>'
+                            + '<td> Name </td>'
+                            + '<td> Overall Record </td>'
+                            + '<td> Home Record </td>'
+                            + '<td> Away Record </td>'
+                            + '<td> OT Record </td>'
+                            + '<td> Points </td>'
+                            + '<td> Rebound</td>'
+                            + '<td> Assists </td>'
+                            + '</tr>\n' + 
+                            '<tr>'
+                            + '<td>' + team['name'] + '</td>'
                             + '<td>' + team['total_wins'] + ' - ' + team['total_losses']+ '</td>'
                             + '<td>' + team['h_wins'] + ' - ' + team['h_losses'] + '</td>'
                             + '<td>' + team['a_wins'] + ' - ' + team['a_losses'] + '</td>'
@@ -91,7 +97,7 @@ function onTeamSelectionChanged() {
                             + '<td>' + team['rebounds_per_game'] + '</td>'
                             + '<td>' + team['assists_per_game'] + '</td>'
                             + '</tr>\n';
-            // 'full_name':row[1], 'total_wins':row[2], 'total_losses':row[3], 'h_wins':row[4], 'h__losses':row[5], 'a_wins':row[6], 'a_losses':row[7], 'ot_wins':row[8], 'ot_losses':row[9], 'points_per_game':row[10], 'rebounds_per_game':row[11], 'assists_per_game':row[12]
+
         }
         let teamsTable = document.getElementById('teams_table')
         if (teamsTable) {

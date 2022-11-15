@@ -1,0 +1,13 @@
+fix player names
+    add first initial, last names
+    fix that its an array
+    seprately track csv id properly
+    fix ' vs. " (" appears when ' is in the name)
+
+    
+
+add dunks to db
+fix hooks, fts 
+(both commented out from compare)
+
+assists broken (typical to have several hundred assists in a season)
