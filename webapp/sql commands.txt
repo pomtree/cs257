@@ -1,0 +1,4 @@
+start:
+	sudo service postgresql start
+
+\copy events FROM 'events.csv' DELIMITER ',' CSV NULL AS 'NULL'

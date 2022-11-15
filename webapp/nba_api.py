@@ -50,21 +50,23 @@ def get_players():
         query += 'WHERE three_attempts > 10'
         sort_argument = 'CAST(three_makes AS FLOAT) / CAST(three_attempts AS FLOAT)'
 
-    print('hello?')
+    if sort_argument == 'fts':
+        query += 'WHERE ft_attempts > 10'
+        sort_argument = 'CAST(ft_makes AS FLOAT) / CAST(ft_attempts AS FLOAT)'
 
-    if search_argument:
 
-        
+#CAST(ROUND(AVG()) AS INT)
+    if search_argument:      
 
-        print(search_argument)
-        print(search_argument.split(', '))
+        # print(search_argument)
+        # print(search_argument.split(', '))
         for search in search_argument.split(','):
-            print(search.strip())
+            # print(search.strip())
             if query.__contains__('WHERE'):
                 query += ' OR '
             else:
                 query += ' WHERE '
-            print('querry append...')
+            # print('querry append...')
             query += 'UPPER(name) LIKE \'%' + search.strip().upper() + '%\' '
 
 
@@ -76,11 +78,10 @@ def get_players():
 
     query += ' LIMIT ' + str(limit)
 
-    print(query)
+    # print(query)
 
     player_list = []
     try:
-        print('trying ')
         connection = get_connection()
         cursor = connection.cursor()
         cursor.execute(query)
@@ -126,9 +127,6 @@ def get_player_details(player_ids):
 
     id_string = player_ids
     
-    #print('please help')
-    #print('%s')
-    #print(id_string)
 
     ids = id_string.split(',')
 
@@ -137,7 +135,7 @@ def get_player_details(player_ids):
     for id in ids:
         query += 'OR id = ' + id + ' '
 
-    print(query)
+    # print(query)
 
     player_list = []
     try:
