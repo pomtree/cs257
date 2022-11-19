@@ -222,7 +222,6 @@ def get_team_stats(team):
         for row in cursor:
             team = {'abbreviation':row[0], 'name':row[1], 'total_wins':row[2], 'total_losses':row[3], 'h_wins':row[4], 'h_losses':row[5], 'a_wins':row[6], 'a_losses':row[7], 'ot_wins':row[8], 'ot_losses':row[9], 'points_per_game':row[10], 'rebounds_per_game':row[11], 'assists_per_game':row[12]}
             team_list.append(team)
-            print(team_list)
         cursor.close()
         connection.close()
     except Exception as e:

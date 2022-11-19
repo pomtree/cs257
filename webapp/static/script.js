@@ -538,7 +538,7 @@ function initialize() {
                 for (let k = 0; k < teams.length; k++) {
                     let team = teams[k];
                     selectorBody += '<option value="' + team['abbreviation'] + '">'
-                        + team['abbreviation'] //+ ': ' + team['full_name']
+                        + team['abbreviation'] + ': ' + team['name']
                         + '</option>\n'
 
                 }
@@ -562,12 +562,6 @@ function initialize() {
 
     function onTeamSelectionChanged() {
 
-        //resultsTableElement.innerHTML = '';
-
-        // let element = document.getElementById('team_selector');
-        // if (!element) {
-        //     return;
-        // }
         let teamID = this.value;
         let url = getAPIBaseURL() + '/teams/team_stat/' + teamID;
 
@@ -586,9 +580,9 @@ function initialize() {
                         + '<td> Home Record </td>'
                         + '<td> Away Record </td>'
                         + '<td> OT Record </td>'
-                        + '<td> Points </td>'
-                        + '<td> Rebound</td>'
-                        + '<td> Assists </td>'
+                        + '<td> Points Per Game</td>'
+                        + '<td> Rebound Per Game</td>'
+                        + '<td> Assists Per Game</td>'
                         + '</tr>\n' +
                         '<tr>'
                         + '<td>' + team['name'] + '</td>'
