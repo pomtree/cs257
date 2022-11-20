@@ -121,7 +121,7 @@ function initialize() {
             window.alert('Please select players to compare');
             return;
         }
-        console.log('querrying...');
+        console.log('querying...');
         comparePlayers(compare_ids);
     }
     function InstantCompare() {
@@ -145,7 +145,6 @@ function initialize() {
                     ids.length = 5;
                 }
                 comparePlayers(ids);
-
             })
             .catch(function (error) {
                 console.log(error);
@@ -573,7 +572,7 @@ function initialize() {
                 let tableBody = '';
                 for (let k = 0; k < teams.length; k++) {
                     let team = teams[k];
-                    tableBody += '<tr> <td> 2019-20 Team Stats <td> <tr>\n'
+                    tableBody += '<tr> <td align="center" colspan="87"> 2019-20 Team Stats <td> <tr>\n'
                         + '<tr>'
                         + '<td> Name </td>'
                         + '<td> Overall Record </td>'

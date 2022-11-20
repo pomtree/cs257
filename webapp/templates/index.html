@@ -21,9 +21,9 @@
 
     <div class="wrapper" id="wrapID">
         <header class="header">
-            <h1 class="headertest"><a href="mockup1.html">NBA App</a></h1>
-            <p>Select Team to View Season Stats:</p> 
-            <p><select id="team_selector"></select></p>
+            <h1 class="headertest">NBA App</h1>
+            <!-- <p>Select Team to View Season Stats:</p>  -->
+            <!-- <p><select id="team_selector"></select></p> -->
             <p>Sort Players By... <select id="sort_by_selector">
 
                 <option value = "assists_s" >Assists</option>
@@ -74,30 +74,31 @@
                     <li><a id="players_by_violations">Violations</a></li>
                     <li><a id="players_by_fts">Free Throws</a></li>
                     <li><a id="players_by_threes">3s</a></li>
-                </ul>
-                Sort Teams By:
-                <ul class="vertical-navbar">
-                    <li><a href="mockup6.html">Wins/Losses</a></li>
-                    <li><a href="mockup6.html">Total Points</a></li>
-                    <li><a href="mockup6.html">etc</a></li>
-                </ul>
+
+                <div id="sbc" class="bigtext">Search Players<br>
+                <input type="search" id="search" name="q" placeholder = "Search for players">
+                    <ul class="vertical-navbar2">
+                        <li><button id="player_search_bar_go">Search Players</button></li>
+                        <li><button id="instant_compare">Instant Compare</button></li>
+                    </ul>
+                
+                </div>
+                <!-- <p class="notetext">search players, teams, etc.</p> -->
+    
             </div>
         </aside>
         <aside class="aside aside-2">
-            <div id="sbc" class="bigtext">Search<br>
-                <input type="search" id="search" name="q">
-                <ul class="vertical-navbar">
-                    <li><a id="player_search_bar_go">Search Players</a></li>
-                    <li><a id="instant_compare">Instant Compare</a></li>
-                </ul>
-                <p class="notetext">search players, teams, etc.</p>
+            </ul>
+            <div id="sbc" class="bigtext">Select Team Statistics<br>
+            <ul class="vertical-navbar3">
+                <li><p><select id="team_selector"></select></p></li>
+            </ul>
 
 
 
-            </div>
-            <div id="player_stats">
+            <!-- <div id="player_stats">
                 player stats tempate
-            </div>
+            </div> -->
         </aside>
         <footer class="footer">Footer</footer>
     </div>

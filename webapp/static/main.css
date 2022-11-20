@@ -52,7 +52,39 @@ ul.vertical-navbar {
   background-color: #f1f1f1;
 }
 
+ul.vertical-navbar2 {
+  list-style-type: none;
+  margin: 0;
+  padding: 1%;
+  width: 98%;
+  background-color: green;
+}
+
+ul.vertical-navbar3 {
+  list-style-type: none;
+  margin: 0;
+  padding: 1%;
+  width: 98%;
+  background-color: #f1f1f1;
+}
+
 ul.vertical-navbar li a {
+  display: block;
+  color: black;
+  padding: 1%;
+  text-decoration: none;
+  text-align: left;
+}
+
+ul.vertical-navbar2 li a {
+  display: block;
+  color: black;
+  padding: 1%;
+  text-decoration: none;
+  text-align: left;
+}
+
+ul.vertical-navbar3 li a {
   display: block;
   color: black;
   padding: 1%;
@@ -70,6 +102,7 @@ ul.vertical-navbar li a:hover {
   color: white;
 }
 
+
 p.compare_p {
   background-color: #f1f1f1;
   display: block;
@@ -85,7 +118,6 @@ p.compare_p a:hover {
 }
 
 #compare_bar {
-  
   text-align: right;
 }
 
@@ -153,7 +185,7 @@ h1.headertest {
 }
 
 #sbc {
-  background-color: #aa0000;
+  background-color: green;
 }
 
 #player_stats {
@@ -188,11 +220,11 @@ h1.headertest {
 }
 
 .aside-1 {
-  background: gold;
+  background: tomato;
 }
 
 .aside-2 {
-  background: hotpink;
+  background: tomato;
 }
 
 @media all and (min-width: 600px) {
@@ -238,4 +270,8 @@ table.tableidtest {
 
   padding: 1%;
   background-color: green;
+}
+
+#team_selector {
+  border: 1px solid black;
 }
