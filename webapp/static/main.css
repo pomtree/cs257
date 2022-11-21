@@ -275,3 +275,13 @@ table.tableidtest {
 #team_selector {
   border: 1px solid black;
 }
+
+#small {
+  width: 200px;
+  height: 250px;
+}
+
+#long {
+  width: 800px;
+  height: 350px;
+}

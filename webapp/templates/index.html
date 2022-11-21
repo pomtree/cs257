@@ -22,8 +22,7 @@
     <div class="wrapper" id="wrapID">
         <header class="header">
             <h1 class="headertest">NBA App</h1>
-            <!-- <p>Select Team to View Season Stats:</p>  -->
-            <!-- <p><select id="team_selector"></select></p> -->
+
             <p>Sort Players By... <select id="sort_by_selector">
 
                 <option value = "assists_s" >Assists</option>
@@ -60,31 +59,43 @@
             </table>
             <p><table id="teams_table"></table></p>
             <ul class="vertical-navbar" id = "compare_list">
-                
+                <li><p align="center"> Welcome to the NBA Database WebApp!</p></li>
+                <li><img id="long" src="https://thumbs.dreamstime.com/b/basketball-court-people-fan-sport-arena-photoreal-d-render-background-blured-long-shot-distancelike-leans-optical-little-83080982.jpg" alt="Basketball Court"></li>   
             </ul>
         </article>
         <aside class="aside aside-1">
             <div id="sidebar" class="bigtext">
                 Sort Players By:
                 <ul class="vertical-navbar">
-                    <li><a id="players_by_assists">Assists</a></li>
+                    <li><p><select id="category_selector">
+
+                        <option id="players_by_assists"> Assists </option>
+                        <option id="players_by_blocks"> Blocks </option>
+                        <option id="players_by_fouls"> Fouls </option>
+                        <option id="players_by_turnovers_caused"> Turnover Caused </option>
+                        <option id="players_by_violations"> Violations </option>
+                        <option id="players_by_fts"> Free Throws </option>
+                        <option id="players_by_threes"> 3s </option>
+
+                    </select></p></li>
+                    <!-- <li><a id="players_by_assists">Assists</a></li>
                     <li><a id="players_by_blocks">Blocks</a></li>
                     <li><a id="players_by_fouls">Fouls</a></li>
                     <li><a id="players_by_turnovers_caused">Turnovers Caused</a></li>
                     <li><a id="players_by_violations">Violations</a></li>
                     <li><a id="players_by_fts">Free Throws</a></li>
-                    <li><a id="players_by_threes">3s</a></li>
+                    <li><a id="players_by_threes">3s</a></li> -->
 
                 <div id="sbc" class="bigtext">Search Players<br>
-                <input type="search" id="search" name="q" placeholder = "Search for players">
-                    <ul class="vertical-navbar2">
-                        <li><button id="player_search_bar_go">Search Players</button></li>
-                        <li><button id="instant_compare">Instant Compare</button></li>
-                    </ul>
-                
-                </div>
-                <!-- <p class="notetext">search players, teams, etc.</p> -->
-    
+                    <input type="search" id="search" name="q" placeholder = "Search for players">
+                        <ul class="vertical-navbar2">
+                            <li><button id="player_search_bar_go">Search Players</button></li>
+                            <li><button id="instant_compare">Instant Compare</button></li>
+                        </ul>
+                    
+                    </div>
+                    <!-- <p class="notetext">search players, teams, etc.</p> -->
+                </ul>
             </div>
         </aside>
         <aside class="aside aside-2">
@@ -92,6 +103,7 @@
             <div id="sbc" class="bigtext">Select Team Statistics<br>
             <ul class="vertical-navbar3">
                 <li><p><select id="team_selector"></select></p></li>
+                <li><img id="small" src="https://seeklogo.com/images/N/nba-logo-20AFA6E832-seeklogo.com.png" alt="NBA Logo"></li>
             </ul>
 
 
