@@ -15,6 +15,11 @@ window.onload = initialize;
 
 function initialize() {
 
+    var show = document.getElementById("basketball_image");
+    show.style.visibility="visible";
+    var show_caption = document.getElementById("welcome");
+    show_caption.style.visibility="visible";
+
     var search_players_go = document.getElementById('player_search_bar_go');
     search_players_go.onclick = SearchPlayers;
 
@@ -27,40 +32,30 @@ function initialize() {
     console.log(sort_selector);
     sort_selector.onchange = onSortSelectionChanged;
 
-    var players_by_assists = document.getElementById('category_selector').value = "0";
-    var players_by_blocks = document.getElementById('category_selector').selectedIndex = "2";
-    var players_by_fouls = document.getElementById('players_by_fouls').value = "2";
 
-    var players_by_threes = document.getElementById('players_by_threes').value = "6";
-
-    var players_by_violations = document.getElementById('players_by_violations').value = "4";
-
-    console.log(players_by_violations);
-    console.log(players_by_assists);
-
-    var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused').value = "3";
-    var players_by_fts = document.getElementById('players_by_fts').value = "5";
-
-    players_by_assists.onchange = Assists;
-    players_by_blocks = Blocks;
-    players_by_fts.onchange = FTs;
-    players_by_threes.onchange = Threes;
-    players_by_fouls.onchange = Fouls;
-    players_by_violations.onchange = Violations;
-    players_by_turnovers_caused.onchange = TOsCaused;
-    players_by_threes = Threes;
+    var players_by_assists = document.getElementById('players_by_assists');
+    var players_by_blocks = document.getElementById('players_by_blocks');
+    var players_by_fouls = document.getElementById('players_by_fouls');
+    var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused');
+    var players_by_fts = document.getElementById('players_by_fts');
+    var players_by_violations = document.getElementById('players_by_violations');
+    var players_by_threes = document.getElementById('players_by_threes');
+    console.log(players_by_violations)
+    console.log(players_by_threes)
+    players_by_assists.onclick = Assists;
+    players_by_blocks.onclick = Blocks;
+    players_by_fouls.onclick = Fouls;
+    players_by_turnovers_caused.onclick = TOsCaused;
+    players_by_fts.onclick = FTs;
+    players_by_violations.onclick = Violations;
+    players_by_threes.onclick = Threes;
 
     console.log('thing')
     console.log(loadTeamSelector)
     loadTeamSelector();
     // gameCategory();
 
-    let cat = document.getElementById('players_by_assists');
-    console.log(cat)
-    console.log('this is where cat should')
-    if (cat) {
-        cat.onchange = Assists;
-    }
+
 
     let element = document.getElementById('team_selector');
     if (element) {
@@ -68,11 +63,6 @@ function initialize() {
 
     }
 
-    // let category = document.getElementById('category_selector');
-    // if (category) {
-    //     category.onchange = categoryGameChanged;
-
-    // }
 
     // Returns the base URL of the API, onto which endpoint components can be appended.
     function getAPIBaseURL() {
@@ -586,23 +576,23 @@ function initialize() {
         console.log("id = " + this.value);
     }
 
-    // function categoryGameChanged() {
+    function categoryGameChanged() {
 
-    //     var players_by_assists = document.getElementById('players_by_assists');
-    //     var players_by_blocks = document.getElementById('players_by_blocks');
-    //     var players_by_fouls = document.getElementById('players_by_fouls');
-    //     var players_by_threes = document.getElementById('players_by_threes');
-    //     var players_by_violations = document.getElementById('players_by_violations');
-    //     var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused');
-    //     var players_by_fts = document.getElementById('players_by_fts');
+        var players_by_assists = document.getElementById('players_by_assists');
+        var players_by_blocks = document.getElementById('players_by_blocks');
+        var players_by_fouls = document.getElementById('players_by_fouls');
+        var players_by_threes = document.getElementById('players_by_threes');
+        var players_by_violations = document.getElementById('players_by_violations');
+        var players_by_turnovers_caused = document.getElementById('players_by_turnovers_caused');
+        var players_by_fts = document.getElementById('players_by_fts');
 
-    //     players_by_assists.onchange = Assists;
-    //     players_by_blocks.onchange = Blocks;
-    //     players_by_fts.onchange = FTs;
-    //     players_by_threes.onchange = Threes;
-    //     players_by_fouls.onchange = Fouls;
-    //     players_by_violations.onchange = Violations;
-    //     players_by_turnovers_caused.onchange = TOsCaused;
+        players_by_assists.onchange = Assists;
+        players_by_blocks.onchange = Blocks;
+        players_by_fts.onchange = FTs;
+        players_by_threes.onchange = Threes;
+        players_by_fouls.onchange = Fouls;
+        players_by_violations.onchange = Violations;
+        players_by_turnovers_caused.onchange = TOsCaused;
 
     //     // '<option id="players_by_assists"> Assists </option>\n' +
     //     //             '<option id="players_by_blocks"> Blocks </option>\n' +
@@ -611,10 +601,14 @@ function initialize() {
     //     //             '<option id="players_by_violations"> Violations </option>\n' +
     //     //             '<option id="players_by_fts"> Free Throws </option>\n' +
     //     //             '<option id="players_by_threes"> 3s </option>\n';
-    // }
+    }
 
     function onTeamSelectionChanged() {
 
+        var hide = document.getElementById("basketball_image");
+        hide.style.visibility="hidden";
+        var caption = document.getElementById("welcome");
+        caption.style.visibility="hidden";
         let teamID = this.value;
         let url = getAPIBaseURL() + '/teams/team_stat/' + teamID;
 

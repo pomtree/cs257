@@ -278,10 +278,10 @@ table.tableidtest {
 
 #small {
   width: 200px;
-  height: 250px;
+  height: 300px;
 }
 
-#long {
+.long {
   width: 800px;
-  height: 350px;
+  height: 400px;
 }
