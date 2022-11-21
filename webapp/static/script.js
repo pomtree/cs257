@@ -16,9 +16,9 @@ window.onload = initialize;
 function initialize() {
 
     var show = document.getElementById("basketball_image");
-    show.style.visibility="visible";
+    //show.style.visibility="visible";
     var show_caption = document.getElementById("welcome");
-    show_caption.style.visibility="visible";
+    //show_caption.style.visibility="visible";
 
     var search_players_go = document.getElementById('player_search_bar_go');
     search_players_go.onclick = SearchPlayers;
@@ -608,9 +608,17 @@ function initialize() {
         initialize();
 
         var hide = document.getElementById("basketball_image");
-        hide.style.visibility="hidden";
-        var caption = document.getElementById("welcome");
-        caption.style.visibility="hidden";
+        try {
+            hide.style.visibility="hidden";
+            var caption = document.getElementById("welcome");
+            caption.style.visibility="hidden";
+          } 
+          catch (error) {
+            console.error(error);
+
+          }
+        
+
         let teamID = this.value;
         let url = getAPIBaseURL() + '/teams/team_stat/' + teamID;
 
@@ -646,6 +654,7 @@ function initialize() {
 
                 }
                 let teamsTable = document.getElementById('results_table');
+                console.log(teamsTable);
                 if (teamsTable) {
                     teamsTable.innerHTML = tableBody;
                 }
