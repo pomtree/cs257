@@ -60,6 +60,26 @@ def api_help():
     REQUEST: /players/details/{player IDs}<br>
     RESPONSE: same as /players/search/..., but instead of search or sort arguments, takes a list of player IDs and returns the associated player's dictionaries.
 
+    REQUEST: /teams/
+    RESPONSE: a JSON list of dictionaries, each which represent one team that contains the following fields</br>
+        <li>abbreviation -- (string) three letter representing name of team</br>
+        <li>name -- (string) full name of each team</br>
+        <li>total_wins -- (integer) total number of wins each team won for the season</br>
+        <li>total_losses -- (integer) total number of losses each team won for the season</br>
+        <li>h_wins -- (integer) total number of home wins each team won for the season</br>
+        <li>h_losses -- (integer) total number of home losses each team loss for the season</br>
+        <li>a_wins -- (integer) total number of away wins each team won for the season</br>
+        <li>a_losses -- (integer) total number of away losses each team loss for the season</br>
+        <li>ot_wins -- (integer) total number of wins in overtime each team won for the 
+        season</br>
+        <li>ot_losses -- (integer) total number of losses in overtime each team won for the season</br>
+        <li>points_per_game -- (integer) average number of points each team has scored through the season</br>
+        <li>rebounds_per_game -- (integer) average number of rebounds each team has scored through the season</br>
+        <li>assists_per_game -- (integer) average number of assists each team has scored through the season</br>
+        <br>
+
+        REQUEST: /teams/team_stat/{abbreviation}
+        RESPONSE: same as /teams/ but with specified team abbreviation and returns JSON dictionary of just the specified team
     '''
 
 

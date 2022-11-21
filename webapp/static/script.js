@@ -605,6 +605,8 @@ function initialize() {
 
     function onTeamSelectionChanged() {
 
+        initialize();
+
         var hide = document.getElementById("basketball_image");
         hide.style.visibility="hidden";
         var caption = document.getElementById("welcome");
