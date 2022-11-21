@@ -30,7 +30,7 @@ function initialize() {
 
     var sort_selector = document.getElementById('sort_by_selector');
     console.log(sort_selector);
-    sort_selector.onchange = onSortSelectionChanged;
+    //sort_selector.onchange = onSortSelectionChanged;
 
 
     var players_by_assists = document.getElementById('players_by_assists');
